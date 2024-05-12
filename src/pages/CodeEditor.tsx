@@ -6,7 +6,7 @@ import React from "react";
 const CodeEditor = () => {
   return (
     <>
-      <div className="flex flex-col ">
+      <div className="flex flex-col justify-center">
         <Header />
         <EditorHome />
       </div>

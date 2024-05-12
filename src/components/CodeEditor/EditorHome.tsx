@@ -13,12 +13,12 @@ const EditorHome = () => {
   return (
     <>
       <div className="flex flex-row justify-between py-5 px-8 h-full items-center gap-3">
-        <div className="w-3/4 flex flex-col justify-center items-center gap-3">
+        <div className="w-2/3 shrink flex flex-col justify-center items-center gap-3">
           <StatusBar />
           <CodeArea setMyCode={setCode} />
         </div>
 
-        <div className="flex flex-col h-full w-full justify-start">
+        <div className="flex flex-col shrink justify-start">
           <VideoCall />
           <Input />
           <Output />
