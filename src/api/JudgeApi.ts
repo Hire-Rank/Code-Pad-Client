@@ -1,7 +1,7 @@
 import axios from "axios";
 
 
-const createSubmission = async (source_code:string, language_id:string, stdin:string ) => {
+const createSubmission = async (source_code:string, language_id:string, stdin:string,setOutput:(output:string)=>void ) => {
   const options = {
     method: "POST",
     url: "https://judge0-ce.p.rapidapi.com/submissions",
@@ -44,6 +44,7 @@ const createSubmission = async (source_code:string, language_id:string, stdin:st
       try {
         const response2 = await axios.request(options);
         console.log(response2.data);
+        setOutput(response2.data.stdout)
         return response2?.data?.stdout
       } catch (error) {
         console.error(error);

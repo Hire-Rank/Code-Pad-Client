@@ -1,6 +1,10 @@
 import React from "react";
 
-const Output = () => {
+interface OutputProps {
+  output:string;
+}
+
+const Output = ({ output }: OutputProps) => {
   return (
     <>
       <div>
@@ -11,6 +15,8 @@ const Output = () => {
           cols={60}
           style={{ resize: "none" }}
           wrap="hard"
+          value={output}
+          readOnly
         ></textarea>
       </div>
     </>

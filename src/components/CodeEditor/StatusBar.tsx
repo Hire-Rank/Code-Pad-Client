@@ -16,9 +16,10 @@ import {
 interface StatusBarProps {
   code: string;
   input: string;
+  setOutput:(output:string)=>void;
 }
 
-const StatusBar = ({ code, input }: StatusBarProps) => {
+const StatusBar = ({ code, input, setOutput}: StatusBarProps) => {
   const [lang, setLang] = useState<string>("53");
 
   useEffect(() => {
@@ -26,7 +27,7 @@ const StatusBar = ({ code, input }: StatusBarProps) => {
   }, [code]);
 
   const handleRunCode = () => {
-    let result = createSubmission(code, lang, input);
+    let result = createSubmission(code, lang, input, setOutput);
     console.log(result);
   };
 
