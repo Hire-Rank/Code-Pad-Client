@@ -2,12 +2,12 @@ import React from "react";
 import { Editor } from "@monaco-editor/react";
 
 interface CodeAreaProps {
-  setMyCode: (code: string) => void;
+  setCode: (code: string) => void;
 }
 
-const CodeArea = ({ setMyCode }: CodeAreaProps) => {
+const CodeArea = ({ setCode }: CodeAreaProps) => {
   function handleEditorChange(value: string | undefined, event: any): void {
-    if (typeof value === "string") setMyCode(value);
+    if (typeof value === "string") setCode(value);
   }
   return (
     <>

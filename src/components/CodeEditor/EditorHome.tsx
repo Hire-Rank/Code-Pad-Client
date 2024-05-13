@@ -7,20 +7,21 @@ import Output from "./Output";
 
 const EditorHome = () => {
   const [code, setCode] = useState<string>("");
+  const [input, setInput] = useState<string>("");
   useEffect(() => {
-    console.log(code);
-  }, [code]);
+    console.log(input);
+  }, [input]);
   return (
     <>
       <div className="flex flex-row justify-between py-5 px-8 h-full items-center gap-3">
         <div className="w-2/3 shrink flex flex-col justify-center items-center gap-3">
-          <StatusBar />
-          <CodeArea setMyCode={setCode} />
+          <StatusBar code={code} input={input} />
+          <CodeArea setCode={setCode} />
         </div>
 
         <div className="flex flex-col shrink justify-start">
           <VideoCall />
-          <Input />
+          <Input setInput={setInput} />
           <Output />
         </div>
       </div>
