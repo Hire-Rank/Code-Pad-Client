@@ -1,6 +1,6 @@
 import CodeArea from "@/components/CodeEditor/CodeArea";
 import EditorHome from "@/components/CodeEditor/EditorHome";
-import Header from "@/components/CodeEditor/Header";
+import Header from "@/components/Header";
 import React from "react";
 
 const CodeEditor = () => {
