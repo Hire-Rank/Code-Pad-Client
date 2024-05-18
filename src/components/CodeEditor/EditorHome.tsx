@@ -5,14 +5,24 @@ import VideoCall from "./VideoCall";
 import Input from "./Input";
 import Output from "./Output";
 
-const EditorHome = () => {
+interface EditorHomeProps {
+  partyStream: MediaStream;
+  remotePartyStream: MediaStream;
+  remoteSocketId: string;
+  handleCallUser: () => void;
+}
+
+const EditorHome = ({
+  partyStream,
+  remotePartyStream,
+  remoteSocketId,
+  handleCallUser,
+}: EditorHomeProps) => {
   const [code, setCode] = useState<string>("");
   const [input, setInput] = useState<string>("");
   const [output, setOutput] = useState<string>("");
 
-  useEffect(() => {
-    // console.log(input);
-  }, [input]);
+  useEffect(() => {}, [partyStream, remotePartyStream, remoteSocketId, input]);
 
   return (
     <>
@@ -23,9 +33,14 @@ const EditorHome = () => {
         </div>
 
         <div className="flex flex-col shrink justify-start">
-          <VideoCall />
+          <VideoCall
+            partyStream={partyStream}
+            remotePartyStream={remotePartyStream}
+            remoteSocketId={remoteSocketId}
+            handleCallUser={handleCallUser}
+          />
           <Input setInput={setInput} />
-          <Output output={output}/>
+          <Output output={output} />
         </div>
       </div>
     </>

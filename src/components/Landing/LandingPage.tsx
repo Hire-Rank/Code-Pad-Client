@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSocket } from "../../context/SocketProvider";
 import Header from "../Header";
 import { Button } from "@/components/ui/button";
 import {
@@ -11,15 +13,33 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
 
 function LandingPage() {
+  const [email, setEmail] = useState("");
+  const [room, setRoom] = useState("");
+
+  const socket = useSocket();
+  const navigate = useNavigate();
+
+  const handleSubmitForm = useCallback(() => {
+    socket.emit("room:join", { email, room });
+  }, [email, room, socket]);
+
+  const handleJoinRoom = useCallback(
+    (data) => {
+      const { email, room } = data;
+      navigate(`/codeeditor/${room}`);
+    },
+    [navigate]
+  );
+
+  useEffect(() => {
+    socket.on("room:join", handleJoinRoom);
+    return () => {
+      socket.off("room:join", handleJoinRoom);
+    };
+  }, [socket, handleJoinRoom]);
+
   return (
     <div className="flex h-full w-full flex-col justify-center">
       <Header />
@@ -31,19 +51,31 @@ function LandingPage() {
       >
         <Card className="w-[450px]">
           <CardHeader>
-            <CardTitle>Room Details</CardTitle>
-            <CardDescription>Join the interview room instantly</CardDescription>
+            <CardTitle>Create New Room</CardTitle>
+            <CardDescription>
+              Create the interview room instantly
+            </CardDescription>
           </CardHeader>
           <CardContent>
             <form>
               <div className="grid w-full items-center gap-4">
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="roomId">Room ID</Label>
-                  <Input id="roomId" placeholder="ENTER ROOM ID" />
+                  <Input
+                    id="roomId"
+                    value={room}
+                    onChange={(e) => setRoom(e.target.value)}
+                    placeholder="ENTER ROOM ID"
+                  />
                 </div>
                 <div className="flex flex-col space-y-1.5">
                   <Label htmlFor="email">Email</Label>
-                  <Input id="email" placeholder="ENTER EMAIL ID" />
+                  <Input
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
+                    id="email"
+                    placeholder="ENTER EMAIL ID"
+                  />
                 </div>
               </div>
             </form>
@@ -52,7 +84,12 @@ function LandingPage() {
             <Button className="w-[120px]" variant="outline">
               Back
             </Button>
-            <Button className="w-[120px] bg-blue-600">Join</Button>
+            <Button
+              className="w-[120px] bg-blue-600"
+              onClick={handleSubmitForm}
+            >
+              Join
+            </Button>
           </CardFooter>
         </Card>
       </div>
