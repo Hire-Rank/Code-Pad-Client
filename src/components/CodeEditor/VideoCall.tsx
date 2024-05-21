@@ -1,9 +1,6 @@
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
-import { Button } from "../ui/button";
-import { boolean } from "zod";
-import { set } from "react-hook-form";
-import { Title } from "@radix-ui/react-toast";
+import { AspectRatio } from "@/components/ui/aspect-ratio";
 
 interface VideoCallProps {
   partyStream: MediaStream;
@@ -20,46 +17,46 @@ const VideoCall = ({
 }: VideoCallProps) => {
   useEffect(() => {}, [partyStream, remotePartyStream, remoteSocketId]);
 
-  const [callStarted, setCallStarted] = useState<boolean>(false);
-
-  const handleStartCall = () => {
-    if (callStarted) setCallStarted(false);
-    else setCallStarted(true);
-    handleCallUser();
-  };
-
   return (
     <>
       <div className="flex border-yellow-400 items-center justify-center">
-        {!remoteSocketId ? "No one in the room" : ""}
-        {remoteSocketId && !callStarted ? (
-          <div className="flex justify-between">
-            <Title>Click on Call to start !</Title>
-            <Button onClick={handleStartCall}>Start Call </Button>
-          </div>
-        ) : (
-          ""
-        )}
+        {/* {!remoteSocketId ? "No one in the room" : ""} */}
         <div className="flex  gap-1 border-yellow-400 items-center justify-center">
-          {partyStream && (
-            <>
-              <ReactPlayer
-                playing
-                width={"230px"}
-                height={"230px"}
-                url={partyStream}
-              />
-            </>
+          {partyStream ? (
+            <ReactPlayer
+              playing
+              muted
+              width={"230px"}
+              height={"230px"}
+              url={partyStream}
+            />
+          ) : (
+            <div className="w-[230px] h-[230px]">
+              <AspectRatio ratio={16 / 9}>
+                <img
+                  src="/meetUserCandidate.jpg"
+                  className="rounded-md object-cover"
+                ></img>
+              </AspectRatio>
+            </div>
           )}
-          {remotePartyStream && (
-            <>
-              <ReactPlayer
-                playing
-                height="230px"
-                width="230px"
-                url={remotePartyStream}
-              />
-            </>
+          {remotePartyStream ? (
+            <ReactPlayer
+              playing
+              muted
+              width={"230px"}
+              height={"230px"}
+              url={remotePartyStream}
+            />
+          ) : (
+            <div className="w-[230px] h-[230px]">
+              <AspectRatio ratio={16 / 9}>
+                <img
+                  src="/meetUserInterviewer.jpg"
+                  className="rounded-md object-cover"
+                ></img>
+              </AspectRatio>
+            </div>
           )}
         </div>
       </div>

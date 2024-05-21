@@ -6,6 +6,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import peer from "../service/peer";
 import { useToast } from "@/components/ui/use-toast";
+import CallAlert from "@/components/CodeEditor/CallAlert";
 
 const CodeEditor = () => {
   const { toast } = useToast();
@@ -123,6 +124,10 @@ const CodeEditor = () => {
     <>
       <div className="flex flex-col justify-center">
         <Header />
+        <CallAlert
+          remoteSocketId={remoteSocketId}
+          handleCallUser={handleCallUser}
+        />
         <EditorHome
           partyStream={myStream}
           remotePartyStream={remoteStream}

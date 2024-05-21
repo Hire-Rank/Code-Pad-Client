@@ -12,7 +12,7 @@ const CodeArea = ({ setCode }: CodeAreaProps) => {
   return (
     <>
       <Editor
-        height="80vh"
+        height="83vh"
         width="100%"
         defaultLanguage="cpp"
         defaultValue="//Write your code here"
