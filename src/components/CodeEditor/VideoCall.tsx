@@ -25,6 +25,7 @@ const VideoCall = ({
           {partyStream ? (
             <ReactPlayer
               muted
+              playing
               width={"230px"}
               height={"230px"}
               url={partyStream}
@@ -41,7 +42,8 @@ const VideoCall = ({
           )}
           {remotePartyStream ? (
             <ReactPlayer
-              muted
+              mute
+              playing
               width={"230px"}
               height={"230px"}
               url={remotePartyStream}
