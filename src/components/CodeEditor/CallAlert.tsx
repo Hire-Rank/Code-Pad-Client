@@ -35,7 +35,7 @@ function CallAlert({ handleCallUser, remoteSocketId }: CallAlertProps) {
           <AlertDescription>
             Click To Connect To Start The Interview
           </AlertDescription>
-          <Button variant="outline" onClick={handleStartCall}>
+          <Button className="bg-blue-500" onClick={handleStartCall}>
             Start Call{" "}
           </Button>
         </Alert>

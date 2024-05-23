@@ -24,7 +24,6 @@ const VideoCall = ({
         <div className="flex  gap-1 border-yellow-400 items-center justify-center">
           {partyStream ? (
             <ReactPlayer
-              playing
               muted
               width={"230px"}
               height={"230px"}
@@ -42,7 +41,6 @@ const VideoCall = ({
           )}
           {remotePartyStream ? (
             <ReactPlayer
-              playing
               muted
               width={"230px"}
               height={"230px"}

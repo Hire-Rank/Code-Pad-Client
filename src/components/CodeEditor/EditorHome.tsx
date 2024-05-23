@@ -21,6 +21,8 @@ const EditorHome = ({
   const [code, setCode] = useState<string>("");
   const [input, setInput] = useState<string>("");
   const [output, setOutput] = useState<string>("");
+  const [theme, setTheme] = useState<string>("vs-dark");
+  const [fontSize, setFontSize] = useState<number>(16);
 
   useEffect(() => {}, [partyStream, remotePartyStream, remoteSocketId, input]);
 
@@ -31,10 +33,19 @@ const EditorHome = ({
           <StatusBar
             code={code}
             input={input}
+            theme={theme}
+            fontSize={fontSize}
+            setFontSize={setFontSize}
             setOutput={setOutput}
             setCode={setCode}
+            setTheme={setTheme}
           />
-          <CodeArea setCode={setCode} />
+          <CodeArea
+            theme={theme}
+            fontSize={fontSize}
+            code={code}
+            setCode={setCode}
+          />
         </div>
 
         <div className="flex flex-col shrink justify-start">

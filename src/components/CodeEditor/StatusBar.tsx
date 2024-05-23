@@ -49,15 +49,29 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { Title } from "@radix-ui/react-toast";
 
 interface StatusBarProps {
   code: string;
   input: string;
+  theme: string;
+  fontSize: number;
+  setTheme: (theme: string) => void;
   setOutput: (output: string) => void;
   setCode: (code: string) => void;
+  setFontSize: (fontSize: number) => void;
 }
 
-const StatusBar = ({ code, input, setOutput, setCode }: StatusBarProps) => {
+const StatusBar = ({
+  code,
+  input,
+  theme,
+  fontSize,
+  setOutput,
+  setCode,
+  setTheme,
+  setFontSize,
+}: StatusBarProps) => {
   const [lang, setLang] = useState<string>("53");
   const [options, setOptions] = useState<any>(false);
 
@@ -129,40 +143,102 @@ const StatusBar = ({ code, input, setOutput, setCode }: StatusBarProps) => {
                     <DropdownMenuTrigger asChild>
                       <img src={dots} className="h-6 cursor-pointer" />
                     </DropdownMenuTrigger>
-                    <DropdownMenuContent className="w-50">
+                    <DropdownMenuContent className="w-60">
                       <DropdownMenuGroup>
+                        <div className="text-gray-700 flex items-center justify-between w-full gap-4 py-2 px-2">
+                          <Title className="font-medium text-sm">
+                            Choose Theme :{" "}
+                          </Title>
+                          <Select
+                            defaultValue={theme}
+                            onValueChange={(value) => setTheme(value)}
+                          >
+                            <SelectTrigger className="w-[90px]">
+                              <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                              <SelectGroup>
+                                <SelectItem
+                                  defaultChecked={
+                                    theme === "vs-dark" ? true : false
+                                  }
+                                  value="vs-dark"
+                                >
+                                  Dark
+                                </SelectItem>
+                                <SelectItem
+                                  defaultChecked={
+                                    theme === "light" ? true : false
+                                  }
+                                  value="light"
+                                >
+                                  Light
+                                </SelectItem>
+                              </SelectGroup>
+                            </SelectContent>
+                          </Select>
+                        </div>
+
                         <DropdownMenuSub>
-                          <DropdownMenuSubTrigger>
-                            <span>Theme</span>
-                          </DropdownMenuSubTrigger>
-                          <DropdownMenuPortal>
-                            <DropdownMenuSubContent>
-                              <DropdownMenuItem>
-                                <span>Light</span>
-                              </DropdownMenuItem>
-                              <DropdownMenuItem>
-                                <span>Dark</span>
-                              </DropdownMenuItem>
-                            </DropdownMenuSubContent>
-                          </DropdownMenuPortal>
-                        </DropdownMenuSub>
-                        <DropdownMenuSub>
-                          <DropdownMenuSubTrigger>
-                            <span>Fonts</span>
-                          </DropdownMenuSubTrigger>
-                          <DropdownMenuPortal>
-                            <DropdownMenuSubContent>
-                              <DropdownMenuItem>
-                                <span>Low</span>
-                              </DropdownMenuItem>
-                              <DropdownMenuItem>
-                                <span>Medium</span>
-                              </DropdownMenuItem>
-                              <DropdownMenuItem>
-                                <span>Large</span>
-                              </DropdownMenuItem>
-                            </DropdownMenuSubContent>
-                          </DropdownMenuPortal>
+                          <div className="text-gray-700 flex items-center justify-between w-full gap-4 py-2 px-[8px]">
+                            <Title className="font-medium text-sm">
+                              Font Size :{" "}
+                            </Title>
+                            <Select
+                              defaultValue={fontSize.toString()}
+                              onValueChange={(value) =>
+                                setFontSize(parseInt(value))
+                              }
+                            >
+                              <SelectTrigger className="w-[90px]">
+                                <SelectValue />
+                              </SelectTrigger>
+                              <SelectContent>
+                                <SelectGroup>
+                                  <SelectItem
+                                    defaultChecked={
+                                      fontSize === 12 ? true : false
+                                    }
+                                    value="12"
+                                  >
+                                    Extra-small
+                                  </SelectItem>
+                                  <SelectItem
+                                    defaultChecked={
+                                      fontSize === 14 ? true : false
+                                    }
+                                    value="14"
+                                  >
+                                    Small
+                                  </SelectItem>
+                                  <SelectItem
+                                    defaultChecked={
+                                      fontSize === 16 ? true : false
+                                    }
+                                    value="16"
+                                  >
+                                    Normal
+                                  </SelectItem>
+                                  <SelectItem
+                                    defaultChecked={
+                                      fontSize === 18 ? true : false
+                                    }
+                                    value="18"
+                                  >
+                                    Large
+                                  </SelectItem>
+                                  <SelectItem
+                                    defaultChecked={
+                                      fontSize === 24 ? true : false
+                                    }
+                                    value="24"
+                                  >
+                                    Extra-large
+                                  </SelectItem>
+                                </SelectGroup>
+                              </SelectContent>
+                            </Select>
+                          </div>
                         </DropdownMenuSub>
                       </DropdownMenuGroup>
                     </DropdownMenuContent>

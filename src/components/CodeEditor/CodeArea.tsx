@@ -2,13 +2,17 @@ import React from "react";
 import { Editor } from "@monaco-editor/react";
 
 interface CodeAreaProps {
+  code: string;
+  theme: string;
+  fontSize: number;
   setCode: (code: string) => void;
 }
 
-const CodeArea = ({ setCode }: CodeAreaProps) => {
-  function handleEditorChange(value: string | undefined, event: any): void {
+const CodeArea = ({ theme, fontSize, code, setCode }: CodeAreaProps) => {
+  const handleEditorChange = (value: string | undefined, event: any): void => {
     if (typeof value === "string") setCode(value);
-  }
+  };
+
   return (
     <>
       <Editor
@@ -16,7 +20,11 @@ const CodeArea = ({ setCode }: CodeAreaProps) => {
         width="100%"
         defaultLanguage="cpp"
         defaultValue="//Write your code here"
-        theme="vs-dark"
+        theme={theme}
+        value={code}
+        options={{
+          fontSize,
+        }}
         onChange={handleEditorChange}
       />
     </>
