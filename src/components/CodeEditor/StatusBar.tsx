@@ -12,22 +12,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-// import {
-//   Cloud,
-//   CreditCard,
-//   Github,
-//   Keyboard,
-//   LifeBuoy,
-//   LogOut,
-//   Mail,
-//   MessageSquare,
-//   Plus,
-//   PlusCircle,
-//   Settings,
-//   User,
-//   UserPlus,
-//   Users,
-// } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -80,6 +64,7 @@ const StatusBar = ({
   }, [code]);
 
   const handleRunCode = () => {
+    // call reset output function here
     let result = createSubmission(code, lang, input, setOutput);
     console.log(result);
   };
@@ -88,9 +73,6 @@ const StatusBar = ({
     setCode("");
   };
 
-  const handleImageClick = () => {
-    setOptions(!options);
-  };
   return (
     <>
       <div className="flex flex-row justify-between w-full">
