@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import { useSocket } from "@/context/SocketProvider";
 import React, { useCallback, useEffect, useState } from "react";
 import ReactPlayer from "react-player";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import peer from "../service/peer";
 import { useToast } from "@/components/ui/use-toast";
 import CallAlert from "@/components/CodeEditor/CallAlert";
@@ -14,6 +15,9 @@ const CodeEditor = () => {
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState<MediaStream>();
   const [remoteStream, setRemoteStream] = useState<MediaStream>();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { roomId } = useParams();
 
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
@@ -22,8 +26,22 @@ const CodeEditor = () => {
       description: `${email} joined room`,
       variant: "default",
     });
+
     setRemoteSocketId(id);
   }, []);
+
+  useEffect(() => {
+    function kickStrangerOut() {
+      navigate("/", { replace: true });
+    }
+
+    location.state && location.state.email
+      ? socket.emit("when a user joins", {
+          roomId,
+          username: location.state.email,
+        })
+      : kickStrangerOut();
+  }, [socket, location.state, roomId, navigate]);
 
   const handleCallUser = useCallback(async () => {
     const stream = await navigator.mediaDevices.getUserMedia({

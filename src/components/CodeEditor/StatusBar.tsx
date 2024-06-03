@@ -34,6 +34,8 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { Title } from "@radix-ui/react-toast";
+import { useSocket } from "@/context/SocketProvider";
+import { useParams } from "react-router-dom";
 
 interface StatusBarProps {
   code: string;
@@ -59,9 +61,21 @@ const StatusBar = ({
   const [lang, setLang] = useState<string>("53");
   const [options, setOptions] = useState<any>(false);
 
+  const socket = useSocket();
+  const { roomId } = useParams();
+
   useEffect(() => {
-    console.log(code);
-  }, [code]);
+    socket.on("on language change", ({ languageUsed }) => {
+      setLang(languageUsed);
+    });
+  }, [code, socket, roomId]);
+
+  function handleLanguageChange(val) {
+    setLang(val);
+    console.log(roomId);
+    socket.emit("update language", { roomId, languageUsed: val });
+    socket.emit("syncing the language", { roomId: roomId });
+  }
 
   const handleRunCode = () => {
     // call reset output function here
@@ -77,7 +91,10 @@ const StatusBar = ({
     <>
       <div className="flex flex-row justify-between w-full">
         <div className="select">
-          <Select defaultValue={"53"} onValueChange={(value) => setLang(value)}>
+          <Select
+            defaultValue={"53"}
+            onValueChange={(value) => handleLanguageChange(value)}
+          >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Language" />
             </SelectTrigger>

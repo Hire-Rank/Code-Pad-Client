@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useSocket } from "../../context/SocketProvider";
 import Header from "../Header";
 import { Button } from "@/components/ui/button";
@@ -39,7 +39,7 @@ function LandingPage() {
   const handleJoinRoom = useCallback(
     (data) => {
       const { email, room } = data;
-      navigate(`/codeeditor/${room}`);
+      navigate(`/codeeditor/${room}`, { state: { email } });
     },
     [navigate]
   );
