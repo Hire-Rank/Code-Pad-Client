@@ -11,7 +11,7 @@ const Input = ({ setInput }: CodeAreaProps) => {
 
   return (
     <div>
-      <h1>Input</h1>
+      <h1 className="px-1 text-gray-600 font-mono">Input</h1>
       <textarea
         className="p-1 border-gray-300 text-white border-4 bg-[#1E1E1E] rounded-xl"
         rows={6}

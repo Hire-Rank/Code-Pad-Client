@@ -31,11 +31,11 @@ const VideoCall = ({
               url={partyStream}
             />
           ) : (
-            <div className="w-[230px] h-[230px]">
+            <div className="w-[230px] h-[230px] p-8">
               <AspectRatio ratio={16 / 9}>
                 <img
                   src="/meetUserCandidate.jpg"
-                  className="rounded-md object-cover"
+                  className="border-gray-500 p-4 border-2 rounded-md object-cover"
                 ></img>
               </AspectRatio>
             </div>
@@ -49,11 +49,11 @@ const VideoCall = ({
               url={remotePartyStream}
             />
           ) : (
-            <div className="w-[230px] h-[230px]">
+            <div className=" w-[230px] h-[230px] p-8">
               <AspectRatio ratio={16 / 9}>
                 <img
                   src="/meetUserInterviewer.jpg"
-                  className="rounded-md object-cover"
+                  className="border-gray-500 p-3 border-2 rounded-md object-cover"
                 ></img>
               </AspectRatio>
             </div>

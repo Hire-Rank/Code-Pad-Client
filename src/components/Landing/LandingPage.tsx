@@ -13,16 +13,27 @@ import {
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useToast } from "@/components/ui/use-toast";
 
 function LandingPage() {
   const [email, setEmail] = useState("");
   const [room, setRoom] = useState("");
 
+  const { toast } = useToast();
+
   const socket = useSocket();
   const navigate = useNavigate();
 
   const handleSubmitForm = useCallback(() => {
-    socket.emit("room:join", { email, room });
+    if (!email || !room) {
+      toast({
+        title: "Missing Fields",
+        description: "Email and Room ID are required !",
+        variant: "destructive",
+      });
+    } else {
+      socket.emit("room:join", { email, room });
+    }
   }, [email, room, socket]);
 
   const handleJoinRoom = useCallback(
