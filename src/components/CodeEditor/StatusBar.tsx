@@ -42,10 +42,12 @@ interface StatusBarProps {
   input: string;
   theme: string;
   fontSize: number;
+  lang: string;
   setTheme: (theme: string) => void;
   setOutput: (output: string) => void;
   setCode: (code: string) => void;
   setFontSize: (fontSize: number) => void;
+  handleLanguageChange: (val: string) => void;
 }
 
 const StatusBar = ({
@@ -53,29 +55,14 @@ const StatusBar = ({
   input,
   theme,
   fontSize,
+  lang,
   setOutput,
   setCode,
   setTheme,
   setFontSize,
+  handleLanguageChange,
 }: StatusBarProps) => {
-  const [lang, setLang] = useState<string>("53");
-  const [options, setOptions] = useState<any>(false);
-
-  const socket = useSocket();
-  const { roomId } = useParams();
-
-  useEffect(() => {
-    socket.on("on language change", ({ languageUsed }) => {
-      setLang(languageUsed);
-    });
-  }, [code, socket, roomId]);
-
-  function handleLanguageChange(val) {
-    setLang(val);
-    console.log(roomId);
-    socket.emit("update language", { roomId, languageUsed: val });
-    socket.emit("syncing the language", { roomId: roomId });
-  }
+  useEffect(() => {}, [lang]);
 
   const handleRunCode = () => {
     // call reset output function here
@@ -92,8 +79,9 @@ const StatusBar = ({
       <div className="flex flex-row justify-between w-full">
         <div className="select">
           <Select
-            defaultValue={"53"}
-            onValueChange={(value) => handleLanguageChange(value)}
+            value={lang}
+            defaultValue={lang}
+            onValueChange={handleLanguageChange}
           >
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Language" />

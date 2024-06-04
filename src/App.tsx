@@ -9,7 +9,7 @@ function App() {
     <Routes>
       <Route path="/" element={<LandingPage />} />
       <Route path="/auth" element={<Auth />} />
-      <Route path="/codeeditor/:roomid" element={<CodeEditor />} />
+      <Route path="/codeeditor/:roomId" element={<CodeEditor />} />
     </Routes>
   );
 }

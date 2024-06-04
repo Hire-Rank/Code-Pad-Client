@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 interface CodeAreaProps {
+  input: string;
   setInput: (input: string) => void;
 }
 
-const Input = ({ setInput }: CodeAreaProps) => {
+const Input = ({ input, setInput }: CodeAreaProps) => {
   function handleInputChange(value: string | undefined): void {
     if (typeof value === "string") setInput(value);
   }
+
+  useEffect(() => {
+    // console.log("In Input: ", input);
+  }, [input]);
 
   return (
     <div>
@@ -17,6 +22,7 @@ const Input = ({ setInput }: CodeAreaProps) => {
         rows={6}
         cols={60}
         style={{ resize: "none" }}
+        value={input}
         onChange={(e) => handleInputChange(e.target.value)}
         wrap="hard"
       ></textarea>

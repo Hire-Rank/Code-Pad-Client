@@ -25,6 +25,7 @@ const EditorHome = ({
   const [output, setOutput] = useState<string>("");
   const [theme, setTheme] = useState<string>("vs-dark");
   const [fontSize, setFontSize] = useState<number>(16);
+  const [lang, setLang] = useState<string>("53");
 
   const socket = useSocket();
 
@@ -48,6 +49,25 @@ const EditorHome = ({
     !socket.connected && navigate("/", { replace: true, state: {} });
   }
 
+  function handleLanguageChange(val) {
+    setLang(val);
+    socket.emit("update language", { roomId, languageUsed: val });
+    socket.emit("syncing the language", { roomId: roomId });
+  }
+
+  function handleInputChange(val) {
+    console.log("Handel Input Change: ", val);
+    setInput(val);
+    socket.emit("update input", { roomId, input: val });
+    socket.emit("syncing the input", { roomId: roomId });
+  }
+
+  function handleOutputChange(val) {
+    setOutput(val);
+    socket.emit("update output", { roomId, output: val });
+    socket.emit("syncing the output", { roomId: roomId });
+  }
+
   function copyToClipboard(text) {
     try {
       navigator.clipboard.writeText(text);
@@ -59,12 +79,24 @@ const EditorHome = ({
 
   useEffect(() => {
     socket.on("updating client list", ({ userslist }) => {
-      console.log(userslist);
       setFetchedUsers(userslist);
+    });
+
+    socket.on("on language change", ({ languageUsed }) => {
+      setLang(languageUsed);
     });
 
     socket.on("on code change", ({ code }) => {
       setFetchedCode(code);
+    });
+
+    socket.on("on input change", ({ input }) => {
+      console.log("on change : ", input);
+      setInput(input);
+    });
+
+    socket.on("on output change", ({ output }) => {
+      setOutput(output);
     });
 
     socket.on("new member joined", ({ username }) => {
@@ -87,9 +119,9 @@ const EditorHome = ({
     //   }
     // );
 
-    return () => {
-      // window.removeEventListener("popstate", backButtonEventListner);
-    };
+    // return () => {
+    // window.removeEventListener("popstate", backButtonEventListner);
+    // };
   }, [socket]);
 
   return (
@@ -100,9 +132,11 @@ const EditorHome = ({
             code={fetchedCode}
             input={input}
             theme={theme}
+            lang={lang}
+            handleLanguageChange={handleLanguageChange}
             fontSize={fontSize}
             setFontSize={setFontSize}
-            setOutput={setOutput}
+            setOutput={handleOutputChange}
             setCode={onChange}
             setTheme={setTheme}
           />
@@ -121,7 +155,7 @@ const EditorHome = ({
             remoteSocketId={remoteSocketId}
             handleCallUser={handleCallUser}
           />
-          <Input setInput={setInput} />
+          <Input input={input} setInput={handleInputChange} />
           <Output output={output} />
         </div>
       </div>
