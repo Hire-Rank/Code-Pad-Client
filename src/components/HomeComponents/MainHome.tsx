@@ -5,12 +5,14 @@ import Navbar from "@/components/HomeComponents/Navbar";
 const MainHome = () => {
   return (
     <>
-      <div className="bg-gradient-to-l from-blue-200">
+      <div className="bg-gradient-to-l from-blue-200 h-4/6 border rounded-b-full">
         {/* <div className="bg-gradient-to-l from-blue-200 h-3/5 border-3  "> */}
         <Navbar />
         <div className="first-div  text-center py-20 m-auto p-auto flex flex-col justify-center w-1/2  ">
-          <p className="font-bold text-8xl">Connect with your team</p>
-          <p className="my-10  w-3/5 m-auto ">
+          <p className="font-bold text-8xl  bg-gradient-to-r from-blue-700  to-blue-200 text-transparent bg-clip-text	">
+            Connect with your team
+          </p>
+          <p className="my-10  w-3/5 m-auto  text-gray-500 font-semibold ">
             CodePad is the platform that provides efficient way for the
             recuriters to conduct the coding interviews.
           </p>
@@ -22,7 +24,7 @@ const MainHome = () => {
         <div className="w-3/4 justify-center m-auto z-0">
           <img
             src={ss}
-            className="border-2 rounded-xl p-3 bg-background"
+            className="border-2 shadow-2xl rounded-xl p-3 bg-background"
             alt=""
           />
         </div>

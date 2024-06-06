@@ -3,6 +3,7 @@ import logo from "../../media/logo.png";
 import CODEPAD from "../../media/CODEPAD.png";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import "./Navbar.css";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -27,6 +28,7 @@ const Navbar = () => {
         <div className="profile-continer ">
           <button
             className="rounded-full mx-5 bg-blue-300 border-2 py-1 px-3 hover:bg-gray-100 font-medium"
+            // className="button-64"
             onClick={handleClick}
           >
             Create Account
