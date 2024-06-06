@@ -27,11 +27,11 @@ const Navbar = () => {
         </Link>
         <div className="profile-continer ">
           <button
-            className="rounded-full mx-5 bg-blue-300 border-2 py-1 px-3 hover:bg-gray-100 font-medium"
+            className="px-6 py-2 rounded-lg text-white font-semibold min-w-[120px] text-center bg-gradient-to-r from-blue-400 to-indigo-600"
             // className="button-64"
             onClick={handleClick}
           >
-            Create Account
+            Sign In
           </button>
         </div>
       </div>
