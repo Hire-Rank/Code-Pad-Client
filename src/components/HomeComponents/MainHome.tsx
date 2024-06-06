@@ -5,7 +5,7 @@ import Navbar from "@/components/HomeComponents/Navbar";
 const MainHome = () => {
   return (
     <>
-      <div className="bg-gradient-to-tl from-cyan-200 h-4/6 border rounded-b-full">
+      <div className="bg-gradient-to-tl from-indigo-100  h-4/6 border rounded-b-full">
         {/* <div className="bg-gradient-to-l from-blue-200 h-3/5 border-3  "> */}
         <Navbar />
         <div className=" first-div  text-center py-20 m-auto p-auto flex flex-col justify-center items-center w-1/2  ">
