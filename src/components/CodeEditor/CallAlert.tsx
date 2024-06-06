@@ -1,6 +1,19 @@
 import React, { useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "../ui/button";
+import { useSocket } from "@/context/SocketProvider";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 
 interface CallAlertProps {
   remoteSocketId: string;
@@ -9,6 +22,20 @@ interface CallAlertProps {
 
 function CallAlert({ handleCallUser, remoteSocketId }: CallAlertProps) {
   const [callStarted, setCallStarted] = useState<boolean>(false);
+
+  const socket = useSocket();
+
+  const navigate = useNavigate();
+  const { roomId } = useParams();
+
+  function handleLeave() {
+    socket.disconnect();
+    if (!socket.connected) {
+      window.opener = null;
+      window.open("/", "_self");
+      window.close();
+    }
+  }
 
   const handleStartCall = () => {
     if (callStarted) setCallStarted(false);
@@ -32,12 +59,41 @@ function CallAlert({ handleCallUser, remoteSocketId }: CallAlertProps) {
       {remoteSocketId && !callStarted && (
         <Alert className="w-full flex justify-between items-center">
           <AlertTitle>Connect</AlertTitle>
-          <AlertDescription>
-            Click To Connect To Start The Interview
-          </AlertDescription>
+          <AlertDescription>Click Start Interview to begin !</AlertDescription>
           <Button className="bg-blue-500" onClick={handleStartCall}>
-            Start Call{" "}
+            Start Interview{" "}
           </Button>
+        </Alert>
+      )}
+      {remoteSocketId && callStarted && (
+        <Alert className="w-full flex justify-between items-center">
+          <AlertTitle>Interview in Progress</AlertTitle>
+          <AlertDescription></AlertDescription>
+          <AlertDialog>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>
+                  Are you absolutely sure to leave ?
+                </AlertDialogTitle>
+                <AlertDialogDescription>
+                  This action cannot be undone. Once interview is left cannot be
+                  rejoined.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  className="bg-blue-500"
+                  onClick={handleLeave}
+                >
+                  Confirm
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+            <AlertDialogTrigger>
+              <Button className="bg-red-500">Leave Interview</Button>
+            </AlertDialogTrigger>
+          </AlertDialog>
         </Alert>
       )}
     </div>
