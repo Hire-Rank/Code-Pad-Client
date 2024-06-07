@@ -1,20 +1,22 @@
 import React from "react";
 import room from "../../media/room.png";
+import realTimeCode from "../../media/realTimeCode.jpg";
+import realTimeVideoCall from "../../media/videoCall.jpg";
 
 const Bottom = () => {
   return (
     <>
-      <div className="h-max  rounded-b-full bg-gradient-to-t from-indigo-100 ">
-        <div className="  flex flex-row">
-          <div className="w-1/2 ml-20 py-10 ">
+      <div className="px-10 flex flex-col items-center justify-center gap-[10rem] h-max  rounded-b-full bg-gradient-to-t from-indigo-100 ">
+        <div className="flex flex-row items-center justify-between">
+          <div className="w-1/2">
             <img
               src={room}
               alt=""
-              className="border-1 rounded-r-full rounded-l-full mix-blend-multiply opacity-80"
+              className="border-1 rounded-xl  opacity-100 h-[450px] w-[720px]"
             />
           </div>
-          <div className="w-1/2 flex flex-col ">
-            <div className=" font-bold text-6xl pt-20 flex  justify-center items-center">
+          <div className="w-1/2 flex flex-col">
+            <div className=" font-bold text-6xl  flex  justify-center items-center">
               <p className="w-3/5 leading-tight">
                 Easy and effortless way to conduct the coding test
               </p>
@@ -29,7 +31,7 @@ const Bottom = () => {
           </div>
         </div>
 
-        <div className=" pt-4  flex flex-row">
+        <div className="flex flex-row">
           <div className="w-1/2 flex flex-col ">
             <div className=" font-bold text-6xl pt-20 flex  justify-center items-center">
               <p className="w-3/5 leading-tight">
@@ -44,25 +46,30 @@ const Bottom = () => {
               </p>
             </div>
           </div>
-          <div className="w-1/2 ml-20 py-10 ">
+          <div className="w-1/2  ">
             <img
-              src={room}
+              src={realTimeCode}
               alt=""
-              className="border-1 rounded-r-full rounded-l-full mix-blend-multiply opacity-80"
+              className="border-1 rounded-xl  mix-blend-multiply opacity-100 h-[450px] w-[820px]"
             />
           </div>
         </div>
 
         <div className=" pt-4 flex flex-row">
-          <div className="w-1/2 ml-20 py-10 ">
+          <div
+            className="w-1/2 py-8 rounded-xl px-5 bg-cover bg-center"
+            style={{
+              backgroundImage: "url('./bgLanding.png')",
+            }}
+          >
             <img
-              src={room}
+              src={realTimeVideoCall}
               alt=""
-              className="border-1 rounded-r-full rounded-l-full mix-blend-multiply opacity-80"
+              className="border-1 rounded-xl h-[350px] w-[720px]"
             />
           </div>
           <div className="w-1/2 flex flex-col ">
-            <div className=" font-bold text-6xl pt-20 flex  justify-center items-center">
+            <div className=" font-bold text-6xl flex  justify-center items-center">
               <p className="w-3/5 leading-tight">Live Video call</p>
             </div>
             <div className="flex justify-evenly ">
@@ -77,7 +84,7 @@ const Bottom = () => {
 
         <div className=" pt-4  flex flex-row">
           <div className="w-1/2 flex flex-col ">
-            <div className=" font-bold text-6xl pt-20 flex  justify-center items-center">
+            <div className=" font-bold text-6xl  flex  justify-center items-center">
               <p className="w-3/5 leading-tight">
                 Compile and Run 30+ languages
               </p>
@@ -90,11 +97,11 @@ const Bottom = () => {
               </p>
             </div>
           </div>
-          <div className="w-1/2 ml-20 py-10 ">
+          <div className="w-1/2">
             <img
               src={room}
               alt=""
-              className="border-1 rounded-r-full rounded-l-full mix-blend-multiply opacity-80"
+              className="border-1 h-[450px] w-[720px] rounded-xl"
             />
           </div>
         </div>
