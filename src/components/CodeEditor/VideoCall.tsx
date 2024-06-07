@@ -7,6 +7,8 @@ interface VideoCallProps {
   remotePartyStream: MediaStream;
   remoteSocketId: string;
   handleCallUser: () => void;
+  isVideoOn: boolean;
+  isAudioOn: boolean;
 }
 
 const VideoCall = ({
@@ -14,8 +16,16 @@ const VideoCall = ({
   remotePartyStream,
   handleCallUser,
   remoteSocketId,
+  isVideoOn,
+  isAudioOn,
 }: VideoCallProps) => {
-  useEffect(() => {}, [partyStream, remotePartyStream, remoteSocketId]);
+  useEffect(() => {}, [
+    partyStream,
+    remotePartyStream,
+    remoteSocketId,
+    isAudioOn,
+    isVideoOn,
+  ]);
 
   return (
     <>
@@ -24,8 +34,8 @@ const VideoCall = ({
         <div className="flex  gap-1 border-yellow-400 items-center justify-center">
           {partyStream ? (
             <ReactPlayer
-              muted
-              playing
+              muted={isAudioOn}
+              playing={isVideoOn}
               width={"230px"}
               height={"230px"}
               url={partyStream}

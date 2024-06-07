@@ -11,6 +11,8 @@ interface EditorHomeProps {
   partyStream: MediaStream;
   remotePartyStream: MediaStream;
   remoteSocketId: string;
+  isVideoOn: boolean;
+  isAudioOn: boolean;
   handleCallUser: () => void;
 }
 
@@ -19,6 +21,8 @@ const EditorHome = ({
   remotePartyStream,
   remoteSocketId,
   handleCallUser,
+  isVideoOn,
+  isAudioOn,
 }: EditorHomeProps) => {
   const [code, setCode] = useState<string>("");
   const [input, setInput] = useState<string>("");
@@ -154,6 +158,8 @@ const EditorHome = ({
             remotePartyStream={remotePartyStream}
             remoteSocketId={remoteSocketId}
             handleCallUser={handleCallUser}
+            isVideoOn={isVideoOn}
+            isAudioOn={isAudioOn}
           />
           <Input input={input} setInput={handleInputChange} />
           <Output output={output} />

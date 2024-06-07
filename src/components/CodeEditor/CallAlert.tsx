@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Button } from "../ui/button";
 import { useSocket } from "@/context/SocketProvider";
@@ -17,10 +17,23 @@ import {
 
 interface CallAlertProps {
   remoteSocketId: string;
+  isVideoOn: boolean;
+  isAudioOn: boolean;
+  setIsVideoOn: (isVideoOn: boolean) => void;
+  setIsAudioOn: (isAudioOn: boolean) => void;
   handleCallUser: () => void;
 }
 
-function CallAlert({ handleCallUser, remoteSocketId }: CallAlertProps) {
+function CallAlert({
+  handleCallUser,
+  remoteSocketId,
+  isAudioOn,
+  isVideoOn,
+  setIsAudioOn,
+  setIsVideoOn,
+}: CallAlertProps) {
+  useEffect(() => {}, [isAudioOn, isVideoOn, remoteSocketId]);
+
   const [callStarted, setCallStarted] = useState<boolean>(false);
 
   const socket = useSocket();
@@ -90,9 +103,23 @@ function CallAlert({ handleCallUser, remoteSocketId }: CallAlertProps) {
                 </AlertDialogAction>
               </AlertDialogFooter>
             </AlertDialogContent>
-            <AlertDialogTrigger>
-              <Button className="bg-red-500">Leave Interview</Button>
-            </AlertDialogTrigger>
+            <div className="flex items-center justify-center gap-8">
+              <div onClick={() => setIsAudioOn(!isAudioOn)}>
+                <img
+                  src={isAudioOn ? "/public/mic.png" : "/public/micOff.png"}
+                  className="w-7 cursor-pointer"
+                ></img>
+              </div>
+              <div onClick={() => setIsVideoOn(!isVideoOn)}>
+                <img
+                  src={isVideoOn ? "/public/video.png" : "/public/videoOff.png"}
+                  className="w-10 cursor-pointer"
+                ></img>
+              </div>
+              <AlertDialogTrigger>
+                <Button className="bg-red-500">Leave Interview</Button>
+              </AlertDialogTrigger>
+            </div>
           </AlertDialog>
         </Alert>
       )}

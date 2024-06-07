@@ -18,6 +18,8 @@ const CodeEditor = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { roomId } = useParams();
+  const [isAudioOn, setIsAudioOn] = useState<boolean>(true);
+  const [isVideoOn, setIsVideoOn] = useState<boolean>(true);
 
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
@@ -145,12 +147,18 @@ const CodeEditor = () => {
         <CallAlert
           remoteSocketId={remoteSocketId}
           handleCallUser={handleCallUser}
+          isVideoOn={isVideoOn}
+          isAudioOn={isAudioOn}
+          setIsVideoOn={setIsVideoOn}
+          setIsAudioOn={setIsAudioOn}
         />
         <EditorHome
           partyStream={myStream}
           remotePartyStream={remoteStream}
           remoteSocketId={remoteSocketId}
           handleCallUser={handleCallUser}
+          isVideoOn={isVideoOn}
+          isAudioOn={isVideoOn}
         />
       </div>
     </>
