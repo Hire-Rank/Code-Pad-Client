@@ -20,6 +20,10 @@ const CodeEditor = () => {
   const { roomId } = useParams();
   const [isAudioOn, setIsAudioOn] = useState<boolean>(true);
   const [isVideoOn, setIsVideoOn] = useState<boolean>(true);
+  const [isAudioOnRemoteParty, setIsAudioOnRemoteParty] =
+    useState<boolean>(true);
+  const [isVideoOnRemoteParty, setIsVideoOnRemoteParty] =
+    useState<boolean>(true);
 
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
@@ -124,6 +128,14 @@ const CodeEditor = () => {
     socket.on("peer:nego:needed", handleNegoNeedIncomming);
     socket.on("peer:nego:final", handleNegoNeedFinal);
 
+    socket.on("on audio change", ({ audio }) => {
+      setIsAudioOnRemoteParty(audio);
+    });
+
+    socket.on("on video change", ({ video }) => {
+      setIsVideoOnRemoteParty(video);
+    });
+
     return () => {
       socket.off("user:joined", handleUserJoined);
       socket.off("incomming:call", handleIncommingCall);
@@ -138,6 +150,10 @@ const CodeEditor = () => {
     handleCallAccepted,
     handleNegoNeedIncomming,
     handleNegoNeedFinal,
+    isAudioOn,
+    isVideoOn,
+    isAudioOnRemoteParty,
+    isVideoOnRemoteParty,
   ]);
 
   return (
@@ -158,7 +174,9 @@ const CodeEditor = () => {
           remoteSocketId={remoteSocketId}
           handleCallUser={handleCallUser}
           isVideoOn={isVideoOn}
-          isAudioOn={isVideoOn}
+          isAudioOn={isAudioOn}
+          isAudioOnRemoteParty={isAudioOnRemoteParty}
+          isVideoOnRemoteParty={isVideoOnRemoteParty}
         />
       </div>
     </>

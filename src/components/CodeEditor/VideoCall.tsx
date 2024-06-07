@@ -9,6 +9,8 @@ interface VideoCallProps {
   handleCallUser: () => void;
   isVideoOn: boolean;
   isAudioOn: boolean;
+  isVideoOnRemoteParty: boolean;
+  isAudioOnRemoteParty: boolean;
 }
 
 const VideoCall = ({
@@ -18,6 +20,8 @@ const VideoCall = ({
   remoteSocketId,
   isVideoOn,
   isAudioOn,
+  isAudioOnRemoteParty,
+  isVideoOnRemoteParty,
 }: VideoCallProps) => {
   useEffect(() => {}, [
     partyStream,
@@ -25,6 +29,8 @@ const VideoCall = ({
     remoteSocketId,
     isAudioOn,
     isVideoOn,
+    isAudioOnRemoteParty,
+    isVideoOnRemoteParty,
   ]);
 
   return (
@@ -33,13 +39,33 @@ const VideoCall = ({
         {/* {!remoteSocketId ? "No one in the room" : ""} */}
         <div className="flex  gap-1 border-yellow-400 items-center justify-center">
           {partyStream ? (
-            <ReactPlayer
-              muted={isAudioOn}
-              playing={isVideoOn}
-              width={"230px"}
-              height={"230px"}
-              url={partyStream}
-            />
+            isVideoOn ? (
+              <ReactPlayer
+                muted={!isAudioOn}
+                playing={true}
+                width={"230px"}
+                height={"230px"}
+                url={partyStream}
+              />
+            ) : (
+              <>
+                <ReactPlayer
+                  muted={!isAudioOn}
+                  playing={true}
+                  width={"0px"}
+                  height={"0px"}
+                  url={partyStream}
+                />
+                <div className="w-[230px] h-[230px] p-8">
+                  <AspectRatio ratio={16 / 9}>
+                    <img
+                      src="/meetUserCandidate.jpg"
+                      className="border-gray-500 p-4 border-2 rounded-md object-cover"
+                    ></img>
+                  </AspectRatio>
+                </div>
+              </>
+            )
           ) : (
             <div className="w-[230px] h-[230px] p-8">
               <AspectRatio ratio={16 / 9}>
@@ -51,13 +77,33 @@ const VideoCall = ({
             </div>
           )}
           {remotePartyStream ? (
-            <ReactPlayer
-              mute
-              playing
-              width={"230px"}
-              height={"230px"}
-              url={remotePartyStream}
-            />
+            isVideoOnRemoteParty ? (
+              <ReactPlayer
+                muted={!isAudioOnRemoteParty}
+                playing={isVideoOnRemoteParty}
+                width={"230px"}
+                height={"230px"}
+                url={remotePartyStream}
+              />
+            ) : (
+              <>
+                <ReactPlayer
+                  muted={!isAudioOnRemoteParty}
+                  playing={isVideoOnRemoteParty}
+                  width={"00px"}
+                  height={"00px"}
+                  url={remotePartyStream}
+                />
+                <div className=" w-[230px] h-[230px] p-8">
+                  <AspectRatio ratio={16 / 9}>
+                    <img
+                      src="/meetUserInterviewer.jpg"
+                      className="border-gray-500 p-3 border-2 rounded-md object-cover"
+                    ></img>
+                  </AspectRatio>
+                </div>
+              </>
+            )
           ) : (
             <div className=" w-[230px] h-[230px] p-8">
               <AspectRatio ratio={16 / 9}>

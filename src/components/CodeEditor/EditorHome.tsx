@@ -13,6 +13,8 @@ interface EditorHomeProps {
   remoteSocketId: string;
   isVideoOn: boolean;
   isAudioOn: boolean;
+  isAudioOnRemoteParty: boolean;
+  isVideoOnRemoteParty: boolean;
   handleCallUser: () => void;
 }
 
@@ -23,6 +25,8 @@ const EditorHome = ({
   handleCallUser,
   isVideoOn,
   isAudioOn,
+  isVideoOnRemoteParty,
+  isAudioOnRemoteParty,
 }: EditorHomeProps) => {
   const [code, setCode] = useState<string>("");
   const [input, setInput] = useState<string>("");
@@ -40,7 +44,16 @@ const EditorHome = ({
   const [fetchedCode, setFetchedCode] = useState(() => "");
   // const [language, setLanguage] = useState(() => "javascript");
 
-  useEffect(() => {}, [partyStream, remotePartyStream, remoteSocketId, input]);
+  useEffect(() => {}, [
+    partyStream,
+    remotePartyStream,
+    remoteSocketId,
+    input,
+    isAudioOn,
+    isVideoOn,
+    isAudioOnRemoteParty,
+    isVideoOnRemoteParty,
+  ]);
 
   function onChange(newValue) {
     setFetchedCode(newValue);
@@ -60,7 +73,6 @@ const EditorHome = ({
   }
 
   function handleInputChange(val) {
-    console.log("Handel Input Change: ", val);
     setInput(val);
     socket.emit("update input", { roomId, input: val });
     socket.emit("syncing the input", { roomId: roomId });
@@ -160,6 +172,8 @@ const EditorHome = ({
             handleCallUser={handleCallUser}
             isVideoOn={isVideoOn}
             isAudioOn={isAudioOn}
+            isVideoOnRemoteParty={isVideoOnRemoteParty}
+            isAudioOnRemoteParty={isAudioOnRemoteParty}
           />
           <Input input={input} setInput={handleInputChange} />
           <Output output={output} />

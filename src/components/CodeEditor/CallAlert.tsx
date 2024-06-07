@@ -41,6 +41,20 @@ function CallAlert({
   const navigate = useNavigate();
   const { roomId } = useParams();
 
+  const handleAudioToggle = () => {
+    let val = !isAudioOn;
+    setIsAudioOn(val);
+    socket.emit("update audio", { roomId, audio: val });
+    socket.emit("syncing the audio", { roomId: roomId });
+  };
+
+  const handleVideoToggle = () => {
+    let val = !isVideoOn;
+    setIsVideoOn(val);
+    socket.emit("update video", { roomId, video: val });
+    socket.emit("syncing the video", { roomId: roomId });
+  };
+
   function handleLeave() {
     socket.disconnect();
     if (!socket.connected) {
@@ -104,13 +118,13 @@ function CallAlert({
               </AlertDialogFooter>
             </AlertDialogContent>
             <div className="flex items-center justify-center gap-8">
-              <div onClick={() => setIsAudioOn(!isAudioOn)}>
+              <div onClick={handleAudioToggle}>
                 <img
                   src={isAudioOn ? "/public/mic.png" : "/public/micOff.png"}
                   className="w-7 cursor-pointer"
                 ></img>
               </div>
-              <div onClick={() => setIsVideoOn(!isVideoOn)}>
+              <div onClick={handleVideoToggle}>
                 <img
                   src={isVideoOn ? "/public/video.png" : "/public/videoOff.png"}
                   className="w-10 cursor-pointer"
