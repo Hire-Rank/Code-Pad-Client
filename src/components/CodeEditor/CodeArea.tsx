@@ -19,7 +19,7 @@ const CodeArea = ({ theme, fontSize, code, setCode }: CodeAreaProps) => {
         height="83vh"
         width="100%"
         defaultLanguage="cpp"
-        defaultValue="//Write your code here"
+        defaultValue="//Welcome to Hire-Rank Code-Pad"
         theme={theme}
         value={code}
         options={{

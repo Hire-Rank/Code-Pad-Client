@@ -15,7 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/components/ui/use-toast";
 
-function LandingPage() {
+function CreateRoom() {
   const [email, setEmail] = useState("");
   const [room, setRoom] = useState("");
 
@@ -108,4 +108,4 @@ function LandingPage() {
   );
 }
 
-export default LandingPage;
+export default CreateRoom;

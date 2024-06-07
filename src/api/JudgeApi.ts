@@ -45,18 +45,24 @@ const createSubmission = async (source_code:string, language_id:string, stdin:st
         setTimeout(async () => {
           const response2 = await axios.request(options);
           console.log(response2.data);
-          setOutput(response2.data.stdout)
-          return response2?.data?.stdout
+          console.log(response2.data.status.description);
+          if(response2.data.status.description==="Accepted"){
+            setOutput(response2.data.stdout)
+            return response2?.data?.stdout
+          }
         }, 2000);
       } catch (error) {
-        console.error(error);
-        return error
+        console.log(error.message);
+        setOutput(error.message);
+        // console.log(error);
+        return error.message;
       }
       
     }
 
     return "Success";
   } catch (error) {
+    setOutput(error.message);
     console.error(error);
     return "Error";
   }
