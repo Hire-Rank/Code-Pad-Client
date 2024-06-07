@@ -20,7 +20,7 @@ const MainHome = () => {
             <button className=" inline-block text-2xl font-semibold w-auto text-center min-w-[200px] px-6 py-4 text-white transition-all rounded-md shadow-xl sm:w-auto bg-gradient-to-r from-blue-600 to-blue-500 hover:bg-gradient-to-b dark:shadow-blue-900 shadow-blue-200 hover:shadow-2xl hover:shadow-blue-400 hover:-tranneutral-y-px">
               Create Interview
             </button>
-            <div className="min-w-[200px] h-20 rounded-md shadow-xl sm:w-auto bg-gradient-to-r from-blue-300 to-blue-400 hover:bg-gradient-to-b dark:shadow-blue-900 shadow-blue-200 hover:shadow-2xl hover:shadow-blue-400 hover:-tranneutral-y-px absolute top-0 left-0 animate-ping"></div>
+            {/* <div className="min-w-[200px] h-20 rounded-md shadow-xl sm:w-auto bg-gradient-to-r from-blue-300 to-blue-400 hover:bg-gradient-to-b dark:shadow-blue-900 shadow-blue-200 hover:shadow-2xl hover:shadow-blue-400 hover:-tranneutral-y-px absolute top-0 left-0 animate-ping"></div> */}
           </div>
         </div>
         {/* </div> */}
