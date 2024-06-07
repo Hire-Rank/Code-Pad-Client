@@ -74,3 +74,24 @@
     @apply bg-background text-foreground;
   }
 }
+
+body{
+  overflow: overlay;
+}
+
+::-webkit-scrollbar {
+  background: transparent;
+  width: 4px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(66, 125, 243, 0.662);
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+::-webkit-scrollbar-corner {
+  border-radius: 10px;
+}
+

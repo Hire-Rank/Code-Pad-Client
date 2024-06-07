@@ -14,6 +14,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
+import Navbar from "@/components/HomeComponents/Navbar";
+import Header from "@/components/Header";
 
 export default function Dashboard() {
   const { toast } = useToast();
@@ -94,102 +96,146 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="w-full lg:grid lg:min-h-[600px] lg:h-screen lg:grid-cols-2 overflow-hidden bg-gradient-to-r from-accent to-white">
-      <div className="flex items-center justify-center py-12">
-        {isloginTab && (
-          <div className="mx-auto grid w-[350px] gap-6">
-            <Form {...loginForm}>
-              <form onSubmit={loginForm.handleSubmit(login)}>
-                <div className="grid gap-2 text-center">
-                  <h1 className="text-3xl font-bold">Login</h1>
-                  <p className="text-balance text-muted-foreground">
-                    Enter your email below to login to your account
-                  </p>
-                </div>
-                <div className="grid gap-4">
-                  <div className="grid gap-2">
-                    <FormField
-                      control={loginForm.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Email</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              type="email"
-                              placeholder="m@example.com"
-                              disabled={isPending}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <div className="grid gap-2">
-                    <FormField
-                      control={loginForm.control}
-                      name="password"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Password</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              type="password"
-                              disabled={isPending}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <Button type="submit" className="w-full">
-                    Login
-                  </Button>
-                </div>
-                <div className="mt-4 text-center text-sm">
-                  Don&apos;t have an account?{" "}
-                  <Button
-                    variant="link"
-                    className="underline p-0"
-                    type="submit"
-                    onClick={() => setLoginTab(false)}
-                  >
-                    Sign up
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </div>
-        )}
+    <>
+      <div className="w-full lg:grid lg:min-h-[600px] lg:h-screen lg:grid-cols-2 overflow-hidden bg-gradient-to-r from-accent to-white">
+        <div className="flex flex-col items-center justify-between py-12">
+          <Header />
 
-        {!isloginTab && (
-          <div className="mx-auto grid w-[350px] gap-6">
-            <Form {...signupForm}>
-              <form onSubmit={signupForm.handleSubmit(signup)}>
-                <div className="grid gap-2 text-center">
-                  <h1 className="text-3xl font-bold">Sign Up</h1>
-                  <p className="text-balance text-muted-foreground">
-                    Enter your information to create an account
-                  </p>
-                </div>
-                <div className="grid gap-4">
-                  <div className="grid grid-cols-2 gap-4">
+          {isloginTab && (
+            <div className="mx-auto grid w-[350px] gap-6">
+              <Form {...loginForm}>
+                <form onSubmit={loginForm.handleSubmit(login)}>
+                  <div className="grid gap-2 text-center">
+                    <h1 className="text-3xl font-bold">Login</h1>
+                    <p className="text-balance text-muted-foreground">
+                      Enter your email below to login to your account
+                    </p>
+                  </div>
+                  <div className="grid gap-4">
                     <div className="grid gap-2">
                       <FormField
-                        control={signupForm.control}
-                        name="first_name"
+                        control={loginForm.control}
+                        name="email"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>First Name</FormLabel>
+                            <FormLabel>Email</FormLabel>
                             <FormControl>
                               <Input
                                 {...field}
-                                type="text"
-                                placeholder="John"
+                                type="email"
+                                placeholder="m@example.com"
+                                disabled={isPending}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <div className="grid gap-2">
+                      <FormField
+                        control={loginForm.control}
+                        name="password"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>Password</FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                type="password"
+                                disabled={isPending}
+                              />
+                            </FormControl>
+                            <FormMessage />
+                          </FormItem>
+                        )}
+                      />
+                    </div>
+                    <Button type="submit" className="w-full bg-blue-500">
+                      Login
+                    </Button>
+                  </div>
+                  <div className="mt-4 text-center text-sm">
+                    Don&apos;t have an account?{" "}
+                    <Button
+                      variant="link"
+                      className="underline p-0"
+                      type="submit"
+                      onClick={() => setLoginTab(false)}
+                    >
+                      Sign up
+                    </Button>
+                  </div>
+                </form>
+              </Form>
+            </div>
+          )}
+
+          {!isloginTab && (
+            <div className="mx-auto grid w-[350px] gap-6">
+              <Form {...signupForm}>
+                <form onSubmit={signupForm.handleSubmit(signup)}>
+                  <div className="grid gap-2 text-center">
+                    <h1 className="text-3xl font-bold">Sign Up</h1>
+                    <p className="text-balance text-muted-foreground">
+                      Enter your information to create an account
+                    </p>
+                  </div>
+                  <div className="grid gap-4">
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="grid gap-2">
+                        <FormField
+                          control={signupForm.control}
+                          name="first_name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>First Name</FormLabel>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  type="text"
+                                  placeholder="John"
+                                  disabled={isPending}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                      <div className="grid gap-2">
+                        <FormField
+                          control={signupForm.control}
+                          name="last_name"
+                          render={({ field }) => (
+                            <FormItem>
+                              <FormLabel>Last Name</FormLabel>
+                              <FormControl>
+                                <Input
+                                  {...field}
+                                  type="text"
+                                  placeholder="Doe"
+                                  disabled={isPending}
+                                />
+                              </FormControl>
+                              <FormMessage />
+                            </FormItem>
+                          )}
+                        />
+                      </div>
+                    </div>
+                    <div className="grid gap-2">
+                      <FormField
+                        control={signupForm.control}
+                        name="email"
+                        render={({ field }) => (
+                          <FormItem>
+                            <FormLabel>E-Mail</FormLabel>
+                            <FormControl>
+                              <Input
+                                {...field}
+                                type="email"
+                                placeholder="m@example.com"
                                 disabled={isPending}
                               />
                             </FormControl>
@@ -201,15 +247,14 @@ export default function Dashboard() {
                     <div className="grid gap-2">
                       <FormField
                         control={signupForm.control}
-                        name="last_name"
+                        name="password"
                         render={({ field }) => (
                           <FormItem>
-                            <FormLabel>Last Name</FormLabel>
+                            <FormLabel>Password</FormLabel>
                             <FormControl>
                               <Input
                                 {...field}
-                                type="text"
-                                placeholder="Doe"
+                                type="password"
                                 disabled={isPending}
                               />
                             </FormControl>
@@ -218,75 +263,36 @@ export default function Dashboard() {
                         )}
                       />
                     </div>
+                    <Button type="submit" className="w-full bg-blue-500">
+                      Create an account
+                    </Button>
                   </div>
-                  <div className="grid gap-2">
-                    <FormField
-                      control={signupForm.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>E-Mail</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              type="email"
-                              placeholder="m@example.com"
-                              disabled={isPending}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
+                  <div className="mt-4 text-center text-sm">
+                    Already have an account?{" "}
+                    <Button
+                      variant="link"
+                      className="underline p-0"
+                      onClick={() => setLoginTab(true)}
+                    >
+                      Sign in
+                    </Button>
                   </div>
-                  <div className="grid gap-2">
-                    <FormField
-                      control={signupForm.control}
-                      name="password"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel>Password</FormLabel>
-                          <FormControl>
-                            <Input
-                              {...field}
-                              type="password"
-                              disabled={isPending}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                  </div>
-                  <Button type="submit" className="w-full">
-                    Create an account
-                  </Button>
-                </div>
-                <div className="mt-4 text-center text-sm">
-                  Already have an account?{" "}
-                  <Button
-                    variant="link"
-                    className="underline p-0"
-                    onClick={() => setLoginTab(true)}
-                  >
-                    Sign in
-                  </Button>
-                </div>
-              </form>
-            </Form>
-          </div>
-        )}
-      </div>
+                </form>
+              </Form>
+            </div>
+          )}
+        </div>
 
-      <div className="hidden bg-muted lg:block ">
-        <img
-          src="https://images.unsplash.com/photo-1511988617509-a57c8a288659?q=80&w=1000&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fGhhcHB5JTIwcGVvcGxlfGVufDB8fDB8fHww"
-          alt="Image"
-          width="1920"
-          height="1080"
-          className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
-        />
+        <div className="hidden bg-muted lg:block ">
+          <img
+            src="/public/bgLanding.png"
+            alt="Image"
+            width="1920"
+            height="1080"
+            className="h-full w-full object-cover dark:brightness-[0.2] dark:grayscale"
+          />
+        </div>
       </div>
-    </div>
+    </>
   );
 }

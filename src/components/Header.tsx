@@ -14,7 +14,7 @@ const Header = () => {
               <img className="h-[5rem]" src={logo} />
             </div>
             <div>
-              <img className="h-[1.8rem]" src={CODEPAD} />
+              <img className="h-[2.0rem]" src={CODEPAD} />
             </div>
           </div>
         </Link>
