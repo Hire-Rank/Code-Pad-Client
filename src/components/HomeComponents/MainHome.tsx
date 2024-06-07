@@ -1,6 +1,7 @@
 import React from "react";
 import ss from "../../media/ss.png";
 import Navbar from "@/components/HomeComponents/Navbar";
+import { NavLink } from "react-router-dom";
 
 const MainHome = () => {
   return (
@@ -17,9 +18,11 @@ const MainHome = () => {
             recuriters to conduct the coding interviews.
           </p>
           <div className="cursor-pointer relative inline-flex">
-            <button className=" inline-block text-2xl font-semibold w-auto text-center min-w-[200px] px-6 py-4 text-white transition-all rounded-md shadow-xl sm:w-auto bg-gradient-to-r from-blue-600 to-blue-500 hover:bg-gradient-to-b dark:shadow-blue-900 shadow-blue-200 hover:shadow-2xl hover:shadow-blue-400 hover:-tranneutral-y-px">
-              Create Interview
-            </button>
+            <NavLink to="/new">
+              <button className=" inline-block text-2xl font-semibold w-auto text-center min-w-[200px] px-6 py-4 text-white transition-all rounded-md shadow-xl sm:w-auto bg-gradient-to-r from-blue-600 to-blue-500 hover:bg-gradient-to-b dark:shadow-blue-900 shadow-blue-200 hover:shadow-2xl hover:shadow-blue-400 hover:-tranneutral-y-px">
+                Create Interview
+              </button>
+            </NavLink>
             {/* <div className="min-w-[200px] h-20 rounded-md shadow-xl sm:w-auto bg-gradient-to-r from-blue-300 to-blue-400 hover:bg-gradient-to-b dark:shadow-blue-900 shadow-blue-200 hover:shadow-2xl hover:shadow-blue-400 hover:-tranneutral-y-px absolute top-0 left-0 animate-ping"></div> */}
           </div>
         </div>
