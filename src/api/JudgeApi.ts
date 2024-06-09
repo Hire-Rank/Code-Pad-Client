@@ -1,5 +1,10 @@
 import axios from "axios";
 
+const getErrorMessage=(code)=>{
+  if(code=="ERR_BAD_REQUEST") return "Compilation Error ! Please check code"
+  else if(code=="ERR_INTERNET_DISCONNECTED" || code=="ERR_NETWORK") return "Check your internet connection !"
+  else return "Run Time Error !"
+}
 
 const createSubmission = async (source_code:string, language_id:string, stdin:string,setOutput:(output:string)=>void ) => {
   const options = {
@@ -40,30 +45,31 @@ const createSubmission = async (source_code:string, language_id:string, stdin:st
 
         }
       };
-      
+      const myInterval =setInterval(async () => {
       try {
-        setTimeout(async () => {
           const response2 = await axios.request(options);
           console.log(response2.data);
           console.log(response2.data.status.description);
           if(response2.data.status.description==="Accepted"){
             setOutput(response2.data.stdout)
+            clearInterval(myInterval);
             return response2?.data?.stdout
           }
-        }, 2000);
+      
       } catch (error) {
-        console.log(error.message);
-        setOutput(error.message);
+        clearInterval(myInterval);
+        console.log("Custom Error inside ",error.message);
+        setOutput(getErrorMessage(error.code));
         // console.log(error);
         return error.message;
       }
-      
+    }, 2000);
     }
 
     return "Success";
   } catch (error) {
-    setOutput(error.message);
-    console.error(error);
+    setOutput(getErrorMessage(error.code));
+    console.log("Custom Error at",error);
     return "Error";
   }
 };

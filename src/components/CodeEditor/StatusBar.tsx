@@ -41,6 +41,7 @@ interface StatusBarProps {
   code: string;
   input: string;
   theme: string;
+  output: string;
   fontSize: number;
   lang: string;
   setTheme: (theme: string) => void;
@@ -53,6 +54,7 @@ interface StatusBarProps {
 const StatusBar = ({
   code,
   input,
+  output,
   theme,
   fontSize,
   lang,
@@ -65,7 +67,7 @@ const StatusBar = ({
   useEffect(() => {}, [lang]);
 
   const handleRunCode = () => {
-    // call reset output function here
+    setOutput("Running...");
     let result = createSubmission(code, lang, input, setOutput);
     console.log(result);
   };

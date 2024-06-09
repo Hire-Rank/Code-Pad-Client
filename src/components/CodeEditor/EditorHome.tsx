@@ -124,20 +124,6 @@ const EditorHome = ({
       // toast(`${username} left`);
       console.log(`${username} left`);
     });
-
-    // const backButtonEventListner = window.addEventListener(
-    //   "popstate",
-    //   function (e) {
-    //     const eventStateObj = e.state;
-    //     if (!("usr" in eventStateObj) || !("username" in eventStateObj.usr)) {
-    //       socket.disconnect();
-    //     }
-    //   }
-    // );
-
-    // return () => {
-    // window.removeEventListener("popstate", backButtonEventListner);
-    // };
   }, [socket]);
 
   return (
@@ -147,6 +133,7 @@ const EditorHome = ({
           <StatusBar
             code={fetchedCode}
             input={input}
+            output={output}
             theme={theme}
             lang={lang}
             handleLanguageChange={handleLanguageChange}
