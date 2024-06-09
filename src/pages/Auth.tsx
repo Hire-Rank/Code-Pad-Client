@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginSchema, SignupSchema } from "@/schemas";
 import * as z from "zod";
+import axios from "axios";
 import {
   Form,
   FormControl,
@@ -19,10 +20,14 @@ import Header from "@/components/Header";
 
 export default function Dashboard() {
   const { toast } = useToast();
-  const [isloginTab, setLoginTab] = useState<boolean>(false);
+  const [isloginTab, setLoginTab] = useState<boolean>(true);
   const [isPending, startTransition] = useTransition();
 
-  const BASE_URL = "http://localhost:4000/api/v1";
+  const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
+
+  const handleSignInWithGoogle = () => {
+    window.open(BASE_URL + "/auth/google", "_self");
+  };
 
   const loginForm = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
@@ -44,26 +49,38 @@ export default function Dashboard() {
 
   const login = async (values: z.infer<typeof LoginSchema>) => {
     startTransition(() => {
-      fetch(BASE_URL + "/login", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      })
+      axios
+        .post(
+          BASE_URL + "/login",
+          {
+            email: values.email,
+            password: values.password,
+          },
+          {
+            withCredentials: true,
+          }
+        )
         .then((res: any) => {
           toast({
             title: res.error ? "Error" : "Success",
             description: res.error ?? res.success,
             variant: res.error ? "destructive" : "default",
           });
-          // window.location.href = "/";
+          sessionStorage.setItem(
+            "HireRankCodePad_UserEmail",
+            res.data.user.email
+          );
+          sessionStorage.setItem(
+            "HireRankCodePad_UserName",
+            res.data.user.name
+          );
+
+          window.location.href = "/";
         })
         .catch((e: any) => {
           toast({
             title: "Error",
-            description: "Something went wrong please try again",
+            description: e.response.data.message,
             variant: "destructive",
           });
         });
@@ -71,26 +88,41 @@ export default function Dashboard() {
   };
   const signup = (values: z.infer<typeof SignupSchema>) => {
     startTransition(() => {
-      fetch(BASE_URL + "/signup", {
-        method: "POST",
-        mode: "cors",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(values),
-      })
+      axios
+        .post(
+          BASE_URL + "/signup",
+          {
+            first_name: values.first_name,
+            last_name: values.last_name,
+            email: values.email,
+            password: values.password,
+          },
+          {
+            withCredentials: true,
+          }
+        )
         .then((res: any) => {
           toast({
             title: res.error ? "Error" : "Success",
             description: res.error ?? res.success,
             variant: res.error ? "destructive" : "default",
           });
-          // window.location.href = "/auth";
+
+          sessionStorage.setItem(
+            "HireRankCodePad_UserEmail",
+            res.data.user.email
+          );
+          sessionStorage.setItem(
+            "HireRankCodePad_UserName",
+            res.data.user.name
+          );
+          window.location.href = "/";
         })
         .catch((e: any) => {
+          console.log(e);
           toast({
             title: "Error",
-            description: "Something went wrong please try again",
+            description: e.response.data.message,
             variant: "destructive",
           });
         });
@@ -279,7 +311,10 @@ export default function Dashboard() {
               </Form>
             </div>
           )}
-          <button className="w-1/2 flex  justify-center items-center bg-white dark:bg-gray-900 border border-gray-300 rounded-lg shadow-md px-6 py-3 text-sm font-medium text-gray-800 dark:text-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+          <button
+            onClick={handleSignInWithGoogle}
+            className="w-1/2 flex  justify-center items-center bg-white dark:bg-gray-900 border border-gray-300 rounded-lg shadow-md px-6 py-3 text-sm font-medium text-gray-800 dark:text-white hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500"
+          >
             <svg
               className="h-6 w-6 mr-2"
               xmlns="http://www.w3.org/2000/svg"
