@@ -22,6 +22,8 @@ export default function Dashboard() {
   const [isloginTab, setLoginTab] = useState<boolean>(false);
   const [isPending, startTransition] = useTransition();
 
+  const BASE_URL = "http://localhost:4000/api/v1";
+
   const loginForm = useForm<z.infer<typeof LoginSchema>>({
     resolver: zodResolver(LoginSchema),
     defaultValues: {
@@ -42,7 +44,7 @@ export default function Dashboard() {
 
   const login = async (values: z.infer<typeof LoginSchema>) => {
     startTransition(() => {
-      fetch("localhost:8080/v1/login", {
+      fetch(BASE_URL + "/login", {
         method: "POST",
         mode: "cors",
         headers: {
@@ -56,7 +58,7 @@ export default function Dashboard() {
             description: res.error ?? res.success,
             variant: res.error ? "destructive" : "default",
           });
-          window.location.href = "/";
+          // window.location.href = "/";
         })
         .catch((e: any) => {
           toast({
@@ -69,7 +71,7 @@ export default function Dashboard() {
   };
   const signup = (values: z.infer<typeof SignupSchema>) => {
     startTransition(() => {
-      fetch("localhost:8080/v1/signup", {
+      fetch(BASE_URL + "/signup", {
         method: "POST",
         mode: "cors",
         headers: {
@@ -83,7 +85,7 @@ export default function Dashboard() {
             description: res.error ?? res.success,
             variant: res.error ? "destructive" : "default",
           });
-          window.location.href = "/auth";
+          // window.location.href = "/auth";
         })
         .catch((e: any) => {
           toast({
