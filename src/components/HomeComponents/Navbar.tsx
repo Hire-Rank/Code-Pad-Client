@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import "./Navbar.css";
 import { Badge } from "@/components/ui/badge";
 import axios from "axios";
+import { Button } from "../ui/button";
 
 const Navbar = () => {
   const navigate = useNavigate();
@@ -75,13 +76,13 @@ const Navbar = () => {
               >
                 {email}
               </Badge>
-              <button
+              <Button
                 className="px-6 py-2 rounded-lg text-white font-semibold min-w-[120px] text-center bg-gradient-to-r from-rose-600 to-red-600"
                 // className="button-64"
                 onClick={handleLogOut}
               >
                 Log Out
-              </button>
+              </Button>
             </div>
           ) : (
             <button
