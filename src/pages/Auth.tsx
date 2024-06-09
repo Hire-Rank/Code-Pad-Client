@@ -136,11 +136,11 @@ export default function Dashboard() {
           <Header />
 
           {isloginTab && (
-            <div className="mx-auto grid w-[350px] gap-6">
+            <div className="mx-auto grid w-[350px] gap-6 text-slate-700">
               <Form {...loginForm}>
                 <form onSubmit={loginForm.handleSubmit(login)}>
                   <div className="grid gap-2 text-center">
-                    <h1 className="text-3xl font-bold">Login</h1>
+                    <h1 className="text-3xl font-bold text-slate-700">Login</h1>
                   </div>
                   <div className="grid gap-4">
                     <div className="grid gap-2">
@@ -203,11 +203,11 @@ export default function Dashboard() {
           )}
 
           {!isloginTab && (
-            <div className="mx-auto grid w-[350px] gap-6">
+            <div className="mx-auto grid w-[350px] gap-6 text-slate-700">
               <Form {...signupForm}>
                 <form onSubmit={signupForm.handleSubmit(signup)}>
                   <div className="grid gap-2 text-center">
-                    <h1 className="text-3xl py-2 font-bold text-gray-800">
+                    <h1 className="text-3xl py-2 font-bold text-slate-700">
                       Sign Up
                     </h1>
                   </div>
