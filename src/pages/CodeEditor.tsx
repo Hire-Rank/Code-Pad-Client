@@ -8,6 +8,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import peer from "../service/peer";
 import { useToast } from "@/components/ui/use-toast";
 import CallAlert from "@/components/CodeEditor/CallAlert";
+import axios from "axios";
 
 const CodeEditor = () => {
   const { toast } = useToast();
@@ -25,6 +26,8 @@ const CodeEditor = () => {
   const [isVideoOnRemoteParty, setIsVideoOnRemoteParty] =
     useState<boolean>(true);
 
+  const [interviewInviteLink, setInterviewInviteLink] = useState<string>();
+
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
     toast({
@@ -36,17 +39,68 @@ const CodeEditor = () => {
     setRemoteSocketId(id);
   }, []);
 
-  useEffect(() => {
-    function kickStrangerOut() {
-      navigate("/", { replace: true });
-    }
+  const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
-    location.state && location.state.email
-      ? socket.emit("when a user joins", {
+  function kickStrangerOut() {
+    navigate("/", { replace: true });
+  }
+
+  function copyToClipboard(text) {
+    try {
+      navigator.clipboard.writeText(text);
+      toast({
+        title: "Interview Invite Link ",
+        description: "Invite Link is Copied To Clipboard",
+        variant: "default",
+      });
+    } catch (exp) {
+      console.error(exp);
+    }
+  }
+
+  const verifyRoomPassword = async () => {
+    axios
+      .post(
+        BASE_URL + "/checkRoomInfo",
+        {
           roomId,
-          username: location.state.email,
-        })
-      : kickStrangerOut();
+          password: location.state.password,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res: any) => {
+        //set interview invite link
+        console.log(res);
+        if (res.data.success) {
+          let host = import.meta.env.VITE_FRONTEND_BASE_URL;
+          let customUrl =
+            host + "/join/" + roomId + "/" + location.state.password;
+          setInterviewInviteLink(customUrl);
+          copyToClipboard(customUrl);
+
+          socket.emit("when a user joins", {
+            roomId,
+            username: location.state.email,
+          });
+        } else kickStrangerOut();
+      })
+      .catch((e: any) => {
+        console.log(e);
+        kickStrangerOut();
+      });
+  };
+
+  useEffect(() => {
+    if (location.state && location.state.email && location.state.password) {
+      verifyRoomPassword();
+    } else {
+      console.log("Before only !");
+      console.log(location.state.email);
+      console.log(location.state.password);
+      kickStrangerOut();
+    }
   }, [socket, location.state, roomId, navigate]);
 
   const handleCallUser = useCallback(async () => {
@@ -167,6 +221,8 @@ const CodeEditor = () => {
           isAudioOn={isAudioOn}
           setIsVideoOn={setIsVideoOn}
           setIsAudioOn={setIsAudioOn}
+          interviewInviteLink={interviewInviteLink}
+          copyToClipboard={copyToClipboard}
         />
         <EditorHome
           partyStream={myStream}

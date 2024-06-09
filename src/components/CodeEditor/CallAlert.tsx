@@ -19,6 +19,8 @@ interface CallAlertProps {
   remoteSocketId: string;
   isVideoOn: boolean;
   isAudioOn: boolean;
+  interviewInviteLink: string;
+  copyToClipboard: (text: string) => void;
   setIsVideoOn: (isVideoOn: boolean) => void;
   setIsAudioOn: (isAudioOn: boolean) => void;
   handleCallUser: () => void;
@@ -31,6 +33,8 @@ function CallAlert({
   isVideoOn,
   setIsAudioOn,
   setIsVideoOn,
+  interviewInviteLink,
+  copyToClipboard,
 }: CallAlertProps) {
   useEffect(() => {}, [isAudioOn, isVideoOn, remoteSocketId]);
 
@@ -78,18 +82,28 @@ function CallAlert({
           <AlertDescription>
             Waiting for the candidate to Join / Interviewer to Start Call
           </AlertDescription>
-          <Button variant="ghost" disabled onClick={handleStartCall}>
-            Start Call{" "}
-          </Button>
+          <div className="flex items-center justify-center gap-8">
+            <div onClick={() => copyToClipboard(interviewInviteLink)}>
+              <img src={"/share.png"} className="w-6 cursor-pointer"></img>
+            </div>
+            <Button variant="ghost" disabled onClick={handleStartCall}>
+              Start Call{" "}
+            </Button>
+          </div>
         </Alert>
       )}
       {remoteSocketId && !callStarted && (
         <Alert className="w-full flex justify-between items-center">
           <AlertTitle>Connect</AlertTitle>
           <AlertDescription>Click Start Interview to begin !</AlertDescription>
-          <Button className="bg-blue-500" onClick={handleStartCall}>
-            Start Interview{" "}
-          </Button>
+          <div className="flex items-center justify-center gap-8">
+            <div onClick={() => copyToClipboard(interviewInviteLink)}>
+              <img src={"/share.png"} className="w-7 cursor-pointer"></img>
+            </div>
+            <Button className="bg-blue-500" onClick={handleStartCall}>
+              Start Interview{" "}
+            </Button>
+          </div>
         </Alert>
       )}
       {remoteSocketId && callStarted && (
@@ -118,15 +132,18 @@ function CallAlert({
               </AlertDialogFooter>
             </AlertDialogContent>
             <div className="flex items-center justify-center gap-8">
+              <div onClick={() => copyToClipboard(interviewInviteLink)}>
+                <img src={"/share.png"} className="w-7 cursor-pointer"></img>
+              </div>
               <div onClick={handleAudioToggle}>
                 <img
-                  src={isAudioOn ? "/public/mic.png" : "/public/micOff.png"}
+                  src={isAudioOn ? "/mic.png" : "/micOff.png"}
                   className="w-7 cursor-pointer"
                 ></img>
               </div>
               <div onClick={handleVideoToggle}>
                 <img
-                  src={isVideoOn ? "/public/video.png" : "/public/videoOff.png"}
+                  src={isVideoOn ? "/video.png" : "/videoOff.png"}
                   className="w-10 cursor-pointer"
                 ></img>
               </div>

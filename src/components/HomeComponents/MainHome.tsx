@@ -1,9 +1,74 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import ss from "../../media/ss.png";
 import Navbar from "@/components/HomeComponents/Navbar";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
+import { customAlphabet } from "nanoid";
+import { useSocket } from "@/context/SocketProvider";
+import axios from "axios";
 
 const MainHome = () => {
+  const socket = useSocket();
+  const navigate = useNavigate();
+  const [password, setPassword] = useState<string>("");
+
+  const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
+
+  const handleCreateInterview = () => {
+    //check logged in
+    const userEmail = sessionStorage.getItem("HireRankCodePad_UserEmail");
+    if (!userEmail) {
+      navigate("/auth");
+      return;
+    }
+
+    const nanoid = customAlphabet("abcdefghijklmnopqrstuvwxyz", 9);
+    let roomId = nanoid();
+    let roomPassword = nanoid();
+
+    console.log(roomId);
+    console.log(roomPassword);
+
+    //setting room password at backend
+    axios
+      .post(
+        BASE_URL + "/assignRoomInfo",
+        {
+          roomId,
+          password: roomPassword,
+        },
+        {
+          withCredentials: true,
+        }
+      )
+      .then((res: any) => {
+        setPassword(roomPassword);
+        sessionStorage.setItem("HireRank_RoomId", roomId);
+        socket.emit("room:join", { email: userEmail, room: roomId });
+      })
+      .catch((e: any) => {
+        console.log(e);
+        alert("Unable to connect with backend at the moment !");
+      });
+  };
+
+  const handleJoinRoom = useCallback(
+    (data) => {
+      console.log("at handle join room: ", password);
+      const { email, room } = data;
+      navigate(`/codeeditor/${room}`, {
+        state: { email, password },
+      });
+    },
+    [navigate, password]
+  );
+
+  useEffect(() => {
+    socket.on("room:join", handleJoinRoom);
+    return () => {
+      socket.off("room:join", handleJoinRoom);
+    };
+  }, [socket, handleJoinRoom, password]);
+
   return (
     <>
       <div className="bg-gradient-to-tl from-indigo-100  h-4/6 border rounded-b-full">
@@ -18,11 +83,12 @@ const MainHome = () => {
             recuriters to conduct the coding interviews.
           </p>
           <div className="cursor-pointer relative inline-flex">
-            <NavLink to="/new">
-              <button className=" inline-block text-2xl font-semibold w-auto text-center min-w-[200px] px-6 py-4 text-white transition-all rounded-md shadow-xl sm:w-auto bg-gradient-to-r from-blue-600 to-blue-500 hover:bg-gradient-to-b dark:shadow-blue-900 shadow-blue-200 hover:shadow-2xl hover:shadow-blue-400 hover:-tranneutral-y-px">
-                Create Interview
-              </button>
-            </NavLink>
+            <button
+              onClick={handleCreateInterview}
+              className=" inline-block text-2xl font-semibold w-auto text-center min-w-[200px] px-6 py-4 text-white transition-all rounded-md shadow-xl sm:w-auto bg-gradient-to-r from-blue-600 to-blue-500 hover:bg-gradient-to-b dark:shadow-blue-900 shadow-blue-200 hover:shadow-2xl hover:shadow-blue-400 hover:-tranneutral-y-px"
+            >
+              Create Interview
+            </button>
             {/* <div className="min-w-[200px] h-20 rounded-md shadow-xl sm:w-auto bg-gradient-to-r from-blue-300 to-blue-400 hover:bg-gradient-to-b dark:shadow-blue-900 shadow-blue-200 hover:shadow-2xl hover:shadow-blue-400 hover:-tranneutral-y-px absolute top-0 left-0 animate-ping"></div> */}
           </div>
         </div>
