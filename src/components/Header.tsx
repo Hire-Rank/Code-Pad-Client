@@ -1,10 +1,19 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import logo from "../media/logo.png";
 import CODEPAD from "../media/CODEPAD.png";
 import profile from "../media/profile.png";
 import { Link } from "react-router-dom";
+import { Badge } from "./ui/badge";
 
 const Header = () => {
+  const [email, setEmail] = useState<string>(null);
+
+  useEffect(() => {
+    const userEmail = sessionStorage.getItem("HireRankCodePad_UserEmail");
+    if (userEmail) setEmail(userEmail);
+    return () => {};
+  }, [email]);
+
   return (
     <>
       <div className="flex flex-row justify-between py-1 px-2 items-center	">
@@ -18,10 +27,16 @@ const Header = () => {
             </div>
           </div>
         </Link>
-
-        {/* <div className='profile-continer '>
-        <img src={profile} className='h-12'/>
-      </div> */}
+        {email && (
+          <div className="profile-continer ">
+            <Badge
+              className="px-6 text-sm py-2 text-gray-700 font-semibold min-w-[120px] text-center"
+              variant="outline"
+            >
+              {email}
+            </Badge>
+          </div>
+        )}
       </div>
     </>
   );
