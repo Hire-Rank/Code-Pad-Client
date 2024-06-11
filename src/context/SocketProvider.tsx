@@ -9,7 +9,10 @@ export const useSocket = () => {
 };
 
 export const SocketProvider = (props) => {
-  const socket = useMemo(() => io("localhost:4001"), []);
+  const socket = useMemo(
+    () => io("https://codepadserver.onrender.com:4001"),
+    []
+  );
 
   return (
     <SocketContext.Provider value={socket}>
