@@ -101,7 +101,7 @@ const Bottom = () => {
             </div>
             <div className="flex justify-evenly ">
               <p className="p-4 w-3/5 text-gray-500 font-normal text-xl flex  justify-center items-center leading-8">
-                Supports C++, Python, Java and Javascrit with lightning fast
+                Supports C++, Python, Java and Javascript with lightning fast
                 Judge
               </p>
             </div>
@@ -119,7 +119,7 @@ const Bottom = () => {
             />
           </div>
         </div>
-        <div className=" font-bold text-6xl w-3/5 border-2 rounded-xl bg-[url('./bgLanding.png')] py-20 flex flex-col leading-tight h-2/4 items-center justify-center m-auto">
+        <div className=" font-bold text-5xl w-3/5 border-2 rounded-xl px-2 bg-[url('/bgLanding.png')] py-20 flex flex-col leading-tight h-2/4 items-center justify-center m-auto">
           <p className="bg-gradient-to-tr from-indigo-700 to-cyan-400 bg-clip-text text-transparent">
             Don't miss the opportunity!
           </p>
