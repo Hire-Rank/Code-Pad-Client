@@ -20,10 +20,10 @@ const Header = () => {
         <Link to={"/"}>
           <div className="logo-continer gap-2 flex flex-row justify-center w-80 items-center ">
             <div>
-              <img className="h-[5rem]" src={logo} />
+              <img className="h-[4rem]" src={logo} />
             </div>
             <div>
-              <img className="h-[2.0rem]" src={CODEPAD} />
+              <img className="h-[1.8rem]" src={CODEPAD} />
             </div>
           </div>
         </Link>

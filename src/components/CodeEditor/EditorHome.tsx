@@ -144,6 +144,7 @@ const EditorHome = ({
             setTheme={setTheme}
           />
           <CodeArea
+            lang={lang}
             theme={theme}
             fontSize={fontSize}
             code={fetchedCode}

@@ -76,9 +76,9 @@ const MainHome = () => {
         <Navbar />
         <div className=" first-div  text-center py-20 m-auto p-auto flex flex-col justify-center items-center w-1/2  ">
           <p className="font-bold text-8xl bg-gradient-to-tr from-indigo-700 to-cyan-400 bg-clip-text text-transparent	">
-            Connect with your team
+            Hire the best talent
           </p>
-          <p className="my-10  w-3/5 m-auto text-gray-500 font-semibold ">
+          <p className="my-10  w-2/3 m-auto text-gray-500 font-semibold ">
             CodePad is the platform that provides efficient way for the
             recuriters to conduct the coding interviews.
           </p>

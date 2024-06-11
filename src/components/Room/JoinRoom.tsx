@@ -133,7 +133,6 @@ function JoinRoom() {
                   <Input
                     id="roomId"
                     className="bg-slate-200"
-                    readOnly
                     value={room}
                     onChange={(e) => setRoom(e.target.value)}
                   />
@@ -144,7 +143,6 @@ function JoinRoom() {
                     id="roomPassword"
                     className="bg-slate-200"
                     value={password}
-                    readOnly
                     onChange={(e) => setPassword(e.target.value)}
                   />
                 </div>

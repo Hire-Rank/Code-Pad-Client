@@ -16,32 +16,34 @@ const Footer = () => {
             </p>
           </div>
           <p className="justify-center items-center pt-4 text-gray-500 font-semibold">
-            A team messaging app for everyone to connect with their team.
+            Perfect Technical Interview Platform
           </p>
           <div className="pt-7 flex flex-row gap-3">
-            <img src={instagram} alt="" className="w-8" />
-            <img src={twitter} alt="" className="w-8" />
-            <img src={facebook} alt="" className="w-8" />
+            <img src={instagram} alt="" className="w-8 cursor-pointer" />
+            <img src={twitter} alt="" className="w-8 cursor-pointer" />
+            <img src={facebook} alt="" className="w-8 cursor-pointer" />
           </div>
         </div>
 
         <div className=" w-1/5 px-10 mt-7">
           <p className=" text-gray-600 font-semibold text-xl pb-5 ">Product</p>
           <ul className="flex flex-col  text-gray-400 font-semibold leading-loose">
-            <li className="hover:text-gray-500">Updates</li>
-            <li className="hover:text-gray-500">Downloads</li>
-            <li className="hover:text-gray-500">Pricing</li>
-            <li className="hover:text-gray-500">Test</li>
+            <li className="hover:text-gray-500 cursor-pointer">Updates</li>
+            <li className="hover:text-gray-500 cursor-pointer">Downloads</li>
+            <li className="hover:text-gray-500 cursor-pointer">Pricing</li>
+            <li className="hover:text-gray-500 cursor-pointer">Community</li>
           </ul>
         </div>
 
         <div className=" w-1/5 px-10 mt-7">
           <p className=" text-gray-600 font-semibold text-xl pb-5 ">Support</p>
           <ul className="flex flex-col  text-gray-400 font-semibold  leading-loose">
-            <li className="hover:text-gray-500">Help center</li>
-            <li className="hover:text-gray-500">Account information</li>
-            <li className="hover:text-gray-500">About</li>
-            <li className="hover:text-gray-500">Contact Us</li>
+            <li className="hover:text-gray-500 cursor-pointer">Help center</li>
+            <li className="hover:text-gray-500 cursor-pointer">
+              Account information
+            </li>
+            <li className="hover:text-gray-500 cursor-pointer">About</li>
+            <li className="hover:text-gray-500 cursor-pointer">Contact Us</li>
           </ul>
         </div>
 
@@ -50,10 +52,14 @@ const Footer = () => {
             Help and Solutions
           </p>
           <ul className="flex flex-col  text-gray-400 font-semibold leading-loose">
-            <li className="hover:text-gray-500">Talk to support</li>
-            <li className="hover:text-gray-500">Support Docs</li>
-            <li className="hover:text-gray-500">System status</li>
-            <li className="hover:text-gray-500">Policy</li>
+            <li className="hover:text-gray-500 cursor-pointer">
+              Talk to support
+            </li>
+            <li className="hover:text-gray-500 cursor-pointer">Support Docs</li>
+            <li className="hover:text-gray-500 cursor-pointer">
+              System status
+            </li>
+            <li className="hover:text-gray-500 cursor-pointer">Policy</li>
           </ul>
         </div>
       </div>
