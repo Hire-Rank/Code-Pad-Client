@@ -377,7 +377,7 @@ export default function Dashboard() {
 
         <div className="hidden bg-muted lg:block ">
           <img
-            src="/public/bgLanding.png"
+            src="/bgLanding.png"
             alt="Image"
             width="1920"
             height="1080"
