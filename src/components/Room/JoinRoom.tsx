@@ -29,6 +29,7 @@ function JoinRoom() {
   const BASE_URL = import.meta.env.VITE_BACKEND_BASE_URL;
 
   const verifyRoomPassword = async () => {
+    const token = sessionStorage.getItem("jwtToken");
     axios
       .post(
         BASE_URL + "/checkRoomInfo",
@@ -37,7 +38,9 @@ function JoinRoom() {
           password,
         },
         {
-          withCredentials: true,
+          headers: {
+            Authorization: "Bearer " + token,
+          },
         }
       )
       .then((res: any) => {

@@ -27,7 +27,7 @@ const MainHome = () => {
 
     console.log(roomId);
     console.log(roomPassword);
-
+    const token = sessionStorage.getItem("jwtToken");
     //setting room password at backend
     axios
       .post(
@@ -37,7 +37,9 @@ const MainHome = () => {
           password: roomPassword,
         },
         {
-          withCredentials: true,
+          headers: {
+            Authorization: "Bearer " + token,
+          },
         }
       )
       .then((res: any) => {

@@ -59,6 +59,7 @@ const CodeEditor = () => {
   }
 
   const verifyRoomPassword = async () => {
+    const token = sessionStorage.getItem("jwtToken");
     axios
       .post(
         BASE_URL + "/checkRoomInfo",
@@ -67,7 +68,9 @@ const CodeEditor = () => {
           password: location.state.password,
         },
         {
-          withCredentials: true,
+          headers: {
+            Authorization: "Bearer " + token,
+          },
         }
       )
       .then((res: any) => {

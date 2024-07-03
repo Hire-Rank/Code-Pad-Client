@@ -4,6 +4,7 @@ import Auth from "./pages/Auth";
 import CodeEditor from "./pages/CodeEditor";
 import JoinRoom from "./components/Room/JoinRoom";
 import Home from "./pages/Home";
+import GoogleSignInPage from "./pages/GoogleSignInPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
       <Route path="/join/:roomId/:roomPassword" element={<JoinRoom />} />
       <Route path="/auth" element={<Auth />} />
       <Route path="/codeeditor/:roomId" element={<CodeEditor />} />
+      <Route path="/google/:token" element={<GoogleSignInPage />} />
     </Routes>
   );
 }

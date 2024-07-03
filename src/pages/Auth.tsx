@@ -74,7 +74,7 @@ export default function Dashboard() {
             "HireRankCodePad_UserName",
             res.data.user.name
           );
-
+          sessionStorage.setItem("jwtToken", res.data.token);
           window.location.href = "/";
         })
         .catch((e: any) => {
@@ -116,6 +116,7 @@ export default function Dashboard() {
             "HireRankCodePad_UserName",
             res.data.user.name
           );
+          sessionStorage.setItem("jwtToken", res.data.token);
           window.location.href = "/";
         })
         .catch((e: any) => {

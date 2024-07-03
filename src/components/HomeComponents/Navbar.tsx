@@ -21,8 +21,13 @@ const Navbar = () => {
 
   const fetchLoggedInUserDetails = async () => {
     //user details
+    const token = sessionStorage.getItem("jwtToken");
     await axios
-      .get(BASE_URL + "/userdashboard", { withCredentials: true })
+      .get(BASE_URL + "/userdashboard", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
       .then((res) => {
         setEmail(res.data.user.email);
         sessionStorage.setItem(
@@ -42,8 +47,13 @@ const Navbar = () => {
   }, [email]);
 
   const handleLogOut = async () => {
+    const token = sessionStorage.getItem("jwtToken");
     await axios
-      .get(BASE_URL + "/logout", { withCredentials: true })
+      .get(BASE_URL + "/logout", {
+        headers: {
+          Authorization: "Bearer " + token,
+        },
+      })
       .then((res) => {
         sessionStorage.clear();
         window.location.href = "/auth";
