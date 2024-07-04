@@ -44,7 +44,7 @@ const VideoCall = ({
           {partyStream ? (
             isVideoOn ? (
               <ReactPlayer
-                muted={!isAudioOn}
+                muted={true}
                 playing={true}
                 width={"230px"}
                 height={"230px"}
@@ -53,7 +53,7 @@ const VideoCall = ({
             ) : (
               <>
                 <ReactPlayer
-                  muted={!isAudioOn}
+                  muted={true}
                   playing={true}
                   width={"0px"}
                   height={"0px"}
