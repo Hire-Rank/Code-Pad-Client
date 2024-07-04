@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import { AspectRatio } from "@/components/ui/aspect-ratio";
+import { setInterval } from "timers/promises";
 
 interface VideoCallProps {
   partyStream: MediaStream;
@@ -23,7 +24,9 @@ const VideoCall = ({
   isAudioOnRemoteParty,
   isVideoOnRemoteParty,
 }: VideoCallProps) => {
-  useEffect(() => {}, [
+  useEffect(() => {
+    console.log(partyStream);
+  }, [
     partyStream,
     remotePartyStream,
     remoteSocketId,
@@ -90,8 +93,8 @@ const VideoCall = ({
                 <ReactPlayer
                   muted={!isAudioOnRemoteParty}
                   playing={isVideoOnRemoteParty}
-                  width={"00px"}
-                  height={"00px"}
+                  width={"0px"}
+                  height={"0px"}
                   url={remotePartyStream}
                 />
                 <div className=" w-[230px] h-[230px] p-8">

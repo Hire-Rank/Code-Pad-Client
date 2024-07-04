@@ -7,11 +7,11 @@ import { SocketProvider } from "./context/SocketProvider.tsx";
 
 ReactDOM.createRoot(document.getElementById("root") as HTMLElement).render(
   <BrowserRouter>
-    <React.StrictMode>
-      <SocketProvider>
-        <App />
-        <Toaster />
-      </SocketProvider>
-    </React.StrictMode>
+    {/* <React.StrictMode> */}
+    <SocketProvider>
+      <App />
+      <Toaster />
+    </SocketProvider>
+    {/* </React.StrictMode> */}
   </BrowserRouter>
 );
