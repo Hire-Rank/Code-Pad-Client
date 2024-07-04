@@ -83,7 +83,7 @@ const VideoCall = ({
             isVideoOnRemoteParty ? (
               <ReactPlayer
                 muted={!isAudioOnRemoteParty}
-                playing={isVideoOnRemoteParty}
+                playing={true}
                 width={"230px"}
                 height={"230px"}
                 url={remotePartyStream}
@@ -92,7 +92,7 @@ const VideoCall = ({
               <>
                 <ReactPlayer
                   muted={!isAudioOnRemoteParty}
-                  playing={isVideoOnRemoteParty}
+                  playing={true}
                   width={"0px"}
                   height={"0px"}
                   url={remotePartyStream}
