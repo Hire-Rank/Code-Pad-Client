@@ -25,8 +25,6 @@ const MainHome = () => {
     let roomId = nanoid();
     let roomPassword = nanoid();
 
-    console.log(roomId);
-    console.log(roomPassword);
     const token = sessionStorage.getItem("jwtToken");
     //setting room password at backend
     axios
@@ -55,7 +53,6 @@ const MainHome = () => {
 
   const handleJoinRoom = useCallback(
     (data) => {
-      console.log("at handle join room: ", password);
       const { email, room } = data;
       navigate(`/codeeditor/${room}`, {
         state: { email, password },

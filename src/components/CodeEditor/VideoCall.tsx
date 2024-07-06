@@ -24,9 +24,7 @@ const VideoCall = ({
   isAudioOnRemoteParty,
   isVideoOnRemoteParty,
 }: VideoCallProps) => {
-  useEffect(() => {
-    console.log(partyStream);
-  }, [
+  useEffect(() => {}, [
     partyStream,
     remotePartyStream,
     remoteSocketId,

@@ -107,7 +107,6 @@ const EditorHome = ({
     });
 
     socket.on("on input change", ({ input }) => {
-      console.log("on change : ", input);
       setInput(input);
     });
 
@@ -117,12 +116,10 @@ const EditorHome = ({
 
     socket.on("new member joined", ({ username }) => {
       // toast(`${username} joined`);
-      console.log(`${username} Joined`);
     });
 
     socket.on("member left", ({ username }) => {
       // toast(`${username} left`);
-      console.log(`${username} left`);
     });
   }, [socket]);
 

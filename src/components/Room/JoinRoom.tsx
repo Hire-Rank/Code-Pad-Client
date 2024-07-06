@@ -45,7 +45,6 @@ function JoinRoom() {
       )
       .then((res: any) => {
         //set interview invite link
-        console.log(res);
         if (res.data.success) {
           socket.emit("room:join", { email, room });
         } else {

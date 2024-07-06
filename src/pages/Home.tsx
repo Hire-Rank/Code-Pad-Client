@@ -6,7 +6,7 @@ const Home = () => {
   return (
     <div className="flex flex-col justify-center gap-36">
       <MainHome />
-      <Features />
+      {/* <Features /> */}
       <Bottom />
       <Footer />
     </div>

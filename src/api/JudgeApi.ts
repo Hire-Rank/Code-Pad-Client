@@ -29,7 +29,7 @@ const createSubmission = async (source_code:string, language_id:string, stdin:st
 
   try {
     const response = await axios.request(options);
-    console.log(response.data);
+  
     if(response&& response?.data && response.data.token){
       const options = {
         method: 'GET',
@@ -48,8 +48,7 @@ const createSubmission = async (source_code:string, language_id:string, stdin:st
       const myInterval =setInterval(async () => {
       try {
           const response2 = await axios.request(options);
-          console.log(response2.data);
-          console.log(response2.data.status.description);
+          
           if(response2.data.status.description==="Accepted"){
             setOutput(response2.data.stdout)
             clearInterval(myInterval);

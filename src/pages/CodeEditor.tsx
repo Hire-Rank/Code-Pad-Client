@@ -29,7 +29,6 @@ const CodeEditor = () => {
   const [interviewInviteLink, setInterviewInviteLink] = useState<string>();
 
   const handleUserJoined = useCallback(({ email, id }) => {
-    console.log(`Email ${email} joined room`);
     toast({
       title: "success",
       description: `${email} joined room`,
@@ -75,7 +74,6 @@ const CodeEditor = () => {
       )
       .then((res: any) => {
         //set interview invite link
-        console.log(res);
         if (res.data.success) {
           let host = import.meta.env.VITE_FRONTEND_BASE_URL;
           let customUrl =
@@ -99,9 +97,6 @@ const CodeEditor = () => {
     if (location.state && location.state.email && location.state.password) {
       verifyRoomPassword();
     } else {
-      console.log("Before only !");
-      console.log(location.state.email);
-      console.log(location.state.password);
       kickStrangerOut();
     }
   }, [socket, location.state, roomId, navigate]);
@@ -124,7 +119,6 @@ const CodeEditor = () => {
         video: true,
       });
       setMyStream(stream);
-      console.log(`Incoming Call`, from, offer);
       const ans = await peer.getAnswer(offer);
       socket.emit("call:accepted", { to: from, ans });
     },
@@ -140,7 +134,6 @@ const CodeEditor = () => {
   const handleCallAccepted = useCallback(
     ({ from, ans }) => {
       peer.setLocalDescription(ans);
-      console.log("Call Accepted!");
       sendStreams();
     },
     [sendStreams]
@@ -173,10 +166,9 @@ const CodeEditor = () => {
   useEffect(() => {
     peer.peer.addEventListener("track", async (ev) => {
       const remoteStream = ev.streams;
-      console.log("GOT TRACKS!!");
       setRemoteStream(remoteStream[0]);
     });
-  }, []);
+  }, [remoteStream, myStream]);
 
   useEffect(() => {
     socket.on("user:joined", handleUserJoined);
@@ -211,6 +203,9 @@ const CodeEditor = () => {
     isVideoOn,
     isAudioOnRemoteParty,
     isVideoOnRemoteParty,
+    remoteStream,
+    myStream,
+    remoteSocketId,
   ]);
 
   return (
