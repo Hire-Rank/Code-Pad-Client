@@ -185,14 +185,11 @@ const CodeEditor = () => {
     [socket]
   );
 
-  const handleNegoNeedFinal = useCallback(
-    async ({ ans }) => {
-      console.log("Final Negotition");
-      console.log(ans);
-      await peer.setLocalDescription(ans);
-    },
-    [socket]
-  );
+  const handleNegoNeedFinal = useCallback(async ({ ans }) => {
+    console.log("Final Negotition");
+    console.log(ans);
+    await peer.setLocalDescription(ans);
+  }, []);
 
   useEffect(() => {
     peer.peer.addEventListener("track", async (ev) => {
@@ -200,7 +197,7 @@ const CodeEditor = () => {
       console.log("Setting remote sttream");
       setRemoteStream(remoteStream[0]);
     });
-  }, [remoteStream]);
+  }, []);
 
   useEffect(() => {
     socket.on("user:joined", handleUserJoined);
@@ -235,10 +232,11 @@ const CodeEditor = () => {
     isVideoOn,
     isAudioOnRemoteParty,
     isVideoOnRemoteParty,
-    remoteStream,
-    myStream,
-    remoteSocketId,
   ]);
+
+  // useEffect(() => {
+  //   return () => {};
+  // }, [remoteStream, myStream, remoteSocketId]);
 
   return (
     <>
