@@ -38,7 +38,7 @@ const VideoCall = ({
     console.log(remotePartyStream);
   };
   useEffect(() => {
-    const interval = setInterval(1000, test);
+    test();
     return () => {};
   }, [remotePartyStream, partyStream]);
 
