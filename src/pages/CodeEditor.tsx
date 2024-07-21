@@ -197,9 +197,10 @@ const CodeEditor = () => {
   useEffect(() => {
     peer.peer.addEventListener("track", async (ev) => {
       const remoteStream = ev.streams;
+      console.log("Setting remote sttream");
       setRemoteStream(remoteStream[0]);
     });
-  }, [remoteStream, myStream, remoteSocketId]);
+  }, [remoteStream]);
 
   useEffect(() => {
     socket.on("user:joined", handleUserJoined);
