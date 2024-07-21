@@ -114,27 +114,43 @@ const CodeEditor = () => {
   const handleIncommingCall = useCallback(
     async ({ from, offer }) => {
       setRemoteSocketId(from);
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: true,
-      });
-      setMyStream(stream);
-      const ans = await peer.getAnswer(offer);
-      socket.emit("call:accepted", { to: from, ans });
+      navigator.mediaDevices
+        .getUserMedia({
+          audio: true,
+          video: true,
+        })
+        .then((stream) => {
+          setMyStream(stream);
+          peer
+            .getAnswer(offer)
+            .then((ans) => {
+              socket.emit("call:accepted", { to: from, ans });
+            })
+            .catch((e) => {
+              console.log(e);
+            });
+        })
+        .catch((e) => {
+          console.log(e);
+        });
     },
     [socket]
   );
 
   const sendStreams = useCallback(() => {
-    for (const track of myStream.getTracks()) {
-      peer.peer.addTrack(track, myStream);
+    if (myStream) {
+      for (const track of myStream.getTracks()) {
+        peer.peer.addTrack(track, myStream);
+      }
     }
   }, [myStream]);
 
   const handleCallAccepted = useCallback(
-    ({ from, ans }) => {
-      peer.setLocalDescription(ans);
-      sendStreams();
+    async ({ from, ans }) => {
+      if (ans) {
+        await peer.setLocalDescription(ans);
+        sendStreams();
+      }
     },
     [sendStreams]
   );
@@ -168,7 +184,7 @@ const CodeEditor = () => {
       const remoteStream = ev.streams;
       setRemoteStream(remoteStream[0]);
     });
-  }, [remoteStream, myStream]);
+  }, [remoteStream, myStream, remoteSocketId]);
 
   useEffect(() => {
     socket.on("user:joined", handleUserJoined);
