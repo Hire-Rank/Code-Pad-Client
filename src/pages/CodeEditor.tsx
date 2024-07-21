@@ -115,7 +115,6 @@ const CodeEditor = () => {
   const handleIncommingCall = useCallback(
     async ({ from, offer }) => {
       setRemoteSocketId(from);
-      console.log("Handle INcoming call");
       navigator.mediaDevices
         .getUserMedia({
           audio: true,
@@ -152,8 +151,6 @@ const CodeEditor = () => {
   const handleCallAccepted = useCallback(
     async ({ from, ans }) => {
       if (ans) {
-        console.log("Call Accepted");
-        console.log(ans);
         await peer.setLocalDescription(ans);
         sendStreams();
       }
@@ -163,8 +160,6 @@ const CodeEditor = () => {
 
   const handleNegoNeeded = useCallback(async () => {
     const offer = await peer.getOffer();
-    console.log("Nego Needed");
-    console.log(remoteSocketId);
     socket.emit("peer:nego:needed", { offer, to: remoteSocketId });
   }, [remoteSocketId, socket]);
 
@@ -178,23 +173,18 @@ const CodeEditor = () => {
   const handleNegoNeedIncomming = useCallback(
     async ({ from, offer }) => {
       const ans = await peer.getAnswer(offer);
-      console.log("Incoming Nego ");
-      console.log(ans);
       socket.emit("peer:nego:done", { to: from, ans });
     },
     [socket]
   );
 
   const handleNegoNeedFinal = useCallback(async ({ ans }) => {
-    console.log("Final Negotition");
-    console.log(ans);
     await peer.setLocalDescription(ans);
   }, []);
 
   useEffect(() => {
     peer.peer.addEventListener("track", async (ev) => {
       const remoteStream = ev.streams;
-      console.log("Setting remote sttream");
       setRemoteStream(remoteStream[0]);
     });
   }, []);
@@ -233,10 +223,6 @@ const CodeEditor = () => {
     isAudioOnRemoteParty,
     isVideoOnRemoteParty,
   ]);
-
-  useEffect(() => {
-    return () => {};
-  }, [remoteStream, myStream]);
 
   return (
     <>
