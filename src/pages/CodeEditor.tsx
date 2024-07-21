@@ -109,11 +109,13 @@ const CodeEditor = () => {
     const offer = await peer.getOffer();
     socket.emit("user:call", { to: remoteSocketId, offer });
     setMyStream(stream);
+    console.log("Calling user");
   }, [remoteSocketId, socket]);
 
   const handleIncommingCall = useCallback(
     async ({ from, offer }) => {
       setRemoteSocketId(from);
+      console.log("Handle INcoming call");
       navigator.mediaDevices
         .getUserMedia({
           audio: true,
@@ -138,6 +140,8 @@ const CodeEditor = () => {
   );
 
   const sendStreams = useCallback(() => {
+    console.log("Sending streams !! GOt Tracks");
+    console.log(myStream);
     if (myStream) {
       for (const track of myStream.getTracks()) {
         peer.peer.addTrack(track, myStream);
@@ -148,6 +152,8 @@ const CodeEditor = () => {
   const handleCallAccepted = useCallback(
     async ({ from, ans }) => {
       if (ans) {
+        console.log("Call Accepted");
+        console.log(ans);
         await peer.setLocalDescription(ans);
         sendStreams();
       }
@@ -157,6 +163,8 @@ const CodeEditor = () => {
 
   const handleNegoNeeded = useCallback(async () => {
     const offer = await peer.getOffer();
+    console.log("Nego Needed");
+    console.log(remoteSocketId);
     socket.emit("peer:nego:needed", { offer, to: remoteSocketId });
   }, [remoteSocketId, socket]);
 
@@ -170,14 +178,21 @@ const CodeEditor = () => {
   const handleNegoNeedIncomming = useCallback(
     async ({ from, offer }) => {
       const ans = await peer.getAnswer(offer);
+      console.log("Incoming Nego ");
+      console.log(ans);
       socket.emit("peer:nego:done", { to: from, ans });
     },
     [socket]
   );
 
-  const handleNegoNeedFinal = useCallback(async ({ ans }) => {
-    await peer.setLocalDescription(ans);
-  }, []);
+  const handleNegoNeedFinal = useCallback(
+    async ({ ans }) => {
+      console.log("Final Negotition");
+      console.log(ans);
+      await peer.setLocalDescription(ans);
+    },
+    [socket]
+  );
 
   useEffect(() => {
     peer.peer.addEventListener("track", async (ev) => {
