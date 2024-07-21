@@ -234,9 +234,9 @@ const CodeEditor = () => {
     isVideoOnRemoteParty,
   ]);
 
-  // useEffect(() => {
-  //   return () => {};
-  // }, [remoteStream, myStream, remoteSocketId]);
+  useEffect(() => {
+    return () => {};
+  }, [remoteStream, myStream]);
 
   return (
     <>

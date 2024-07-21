@@ -34,6 +34,14 @@ const VideoCall = ({
     isVideoOnRemoteParty,
   ]);
 
+  const test = () => {
+    console.log(remotePartyStream);
+  };
+  useEffect(() => {
+    const interval = setInterval(1000, test);
+    return () => {};
+  }, [remotePartyStream, partyStream]);
+
   return (
     <>
       <div className="flex border-yellow-400 items-center justify-center">
